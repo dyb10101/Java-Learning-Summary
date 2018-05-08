@@ -835,6 +835,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
             return new KeySpliterator<>(HashMap.this, 0, -1, 0, 0);
         }
 
+        // Java 8
         public final void forEach(Consumer<? super K> action) {
             Node<K, V>[] tab;
             if (action == null)
@@ -1057,6 +1058,15 @@ public class HashMap<K, V> extends AbstractMap<K, V>
         return null;
     }
 
+    
+    /**
+     * Map接口的实现类如HashMap,ConcurrentHashMap,HashTable等继承了此方法
+     * 通过此方法可以构建JAVA本地缓存，降低程序的计算量，程序的复杂度，使代码简洁，易懂。
+     * 
+     * 此方法首先判断缓存MAP中是否存在指定key的值，如果不存在，会自动调用mappingFunction(key)计算key的value
+     * 然后将key = value放入到缓存Map,java8会使用thread-safe的方式从cache中存取记录。
+	 * 如果mappingFunction(key)返回的值为null或抛出异常，则不会有记录存入map
+     */
     @Override
     public V computeIfAbsent(K key,
                              Function<? super K, ? extends V> mappingFunction) {
@@ -1113,6 +1123,10 @@ public class HashMap<K, V> extends AbstractMap<K, V>
         return v;
     }
 
+    
+    /**
+     * 已经存在值的情况下,才计算新值。
+     */
     public V computeIfPresent(K key,
                               BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
         if (remappingFunction == null)
@@ -1187,6 +1201,13 @@ public class HashMap<K, V> extends AbstractMap<K, V>
         return v;
     }
 
+    
+    /**
+     * Java 8
+     * 合并
+     * map.merge("foo", "boo", (oldVal, newVal) -> newVal + " was " + oldVal);  
+	 * System.out.println(map.get("foo"));   // boo was foo  
+     */
     @Override
     public V merge(K key, V value,
                    BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
@@ -1287,7 +1308,8 @@ public class HashMap<K, V> extends AbstractMap<K, V>
     /**
      * 浅拷贝。
      * clone方法虽然生成了新的HashMap对象，新的HashMap中的table数组虽然也是新生成的，但是数组中的元素还是引用以前的HashMap中的元素。
-     * 这就导致在对HashMap中的元素进行修改的时候，即对数组中元素进行修改，会导致原对象和clone对象都发生改变，但进行新增或删除就不会影响对方，因为这相当于是对数组做出的改变，clone对象新生成了一个数组。
+     * 这就导致在对HashMap中的元素进行修改的时候，即对数组中元素进行修改，会导致原对象和clone对象都发生改变，但进行新增或删除就不会影响对方
+     * 因为这相当于是对数组做出的改变，clone对象新生成了一个数组。
      *
      * @return hashMap的浅拷贝
      */
@@ -1321,12 +1343,6 @@ public class HashMap<K, V> extends AbstractMap<K, V>
      * 序列化hashMap到ObjectOutputStream中
      * 将hashMap的总容量capacity、实际容量size、键值对映射写入到ObjectOutputStream中。键值对映射序列化时是无序的。
      *
-     * @serialData The <i>capacity</i> of the HashMap (the length of the
-     * bucket array) is emitted (int), followed by the
-     * <i>size</i> (an int, the number of key-value
-     * mappings), followed by the key (Object) and value (Object)
-     * for each key-value mapping.  The key-value mappings are
-     * emitted in no particular order.
      */
     private void writeObject(java.io.ObjectOutputStream s)
             throws IOException {
@@ -1470,7 +1486,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
         }
     }
 
-    /* ------------------------------------------------------------ */
+    /* ---------------------------Java 8 --------------------------------- */
     // spliterators
 
     static class HashMapSpliterator<K, V> {

@@ -51,7 +51,7 @@ public class Hashtable<K, V>
 	 * 迭代操作时，若有其他线程对其进行结构性的修改，这时迭代器会立马感知到，并且立即抛出
 	 * ConcurrentModificationException异常，而不是等到迭代完成之后才告诉你（你已经出错了）。
 	 * 
-	 * 注意，这个异常不仅可能出现在多线程中，在单线程可能因为对非同步集合同时进行插入删除而抛出该异常,而迭代器只能保证删除正常。
+	 * 注意，这个异常不仅可能出现在多线程中，在单线程可能因为对非同步集合同时进行插入删除而抛出该异常,而迭代器只能保证删除正常.
 	 */
     private transient int modCount = 0;
 
@@ -224,6 +224,8 @@ public class Hashtable<K, V>
         int hash = key.hashCode();
         /**
 		 * 计算index, % tab.length防止数组越界 index表示key对应entry所在链表表头
+		 * 0x7FFFFFFF只有首位为0其余全1，是最大值，所以(hash & 0x7FFFFFFF)只与低位相关
+		 * 类似HashMap中  (len-1) & hash求桶位置
 		 */
         int index = (hash & 0x7FFFFFFF) % tab.length;
         for (Entry<?, ?> e = tab[index]; e != null; e = e.next) {

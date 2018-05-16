@@ -14,6 +14,10 @@ import java.util.function.Function;
 
 /**
  * HashMap是常用的Java集合之一，是基于哈希表的Map接口的实现。与HashTable主要区别为不支持同步和允许null作为key和value。
+ *
+ * 扩容由于是2的幂次，所以比Hashtable快，但是这样可能造成冲突概率增加，所以进行二次hash
+ * HashMap由于使用了2的幂次方，所以在取模运算时不需要做除法，只需要位的与运算就可以了。
+ * HashMap在调用了对象的hashCode方法之后，又做了一些位运算在打散数据
  * 
  * HashMap非线程安全，即任一时刻可以有多个线程同时写HashMap，可能会导致数据的不一致。
  * 如果需要满足线程安全，可以用 Collections的synchronizedMap方法使HashMap具有线程安全的能力，或者使用ConcurrentHashMap。
@@ -129,7 +133,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
      * HashMap中键值对的存储形式为链表节点，hashCode相同的节点（位于同一个桶）用链表组织
      * hash方法分为三步:
      * 1.取key的hashCode
-     * 2.key的hashCode高16位异或低16位
+     * 2.key的hashCode右移16位然后与自己异或
      * 3.将第一步和第二步得到的结果进行取模运算。
      */
     static final int hash(Object key) {

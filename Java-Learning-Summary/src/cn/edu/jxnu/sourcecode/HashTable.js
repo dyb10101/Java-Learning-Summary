@@ -9,7 +9,7 @@ import java.util.function.BiFunction;
 import sun.misc.SharedSecrets;
 
 /**
- * 注意Hashtable t是小写，文件名小写会Eclipse构建会报错
+ * 注意Hashtable t是小写，文件名小写会Eclipse构建会报错,未知原因
  * Hashtable存储的内容是键值对(key-value)映射，其底层实现是一个Entry数组+链表；
  * Hashtable和HashMap一样也是散列表，存储元素也是键值对；
  * HashMap允许key和value都为null，而Hashtable都不能为null，Hashtable中的映射不是有序的；

@@ -517,7 +517,7 @@ public class ConcurrentHashMap<K, V> extends AbstractMap<K, V>
      * 2.1）检查table[i]的节点的hash是否等于MOVED，如果等于，则检测到正在扩容，则帮助其扩容
      * 2.2）说明table[i]的节点的hash值不等于MOVED，如果table[i]为链表节点，则将此节点插入链表中即可
      * 如果table[i]为树节点，则将此节点插入树中即可。插入成功后，进行 5
-     * 5、如果table[i]的节点是链表节点，则检查table的第i个位置的链表是否需要转化为数，如果需要则调用treeifyBin函数进行转化
+     * 5、如果table[i]的节点是链表节点，则检查table的第i个位置的链表是否需要转化为树，如果需要则调用treeifyBin函数进行转化
      */
     final V putVal(K key, V value, boolean onlyIfAbsent) {
         if (key == null || value == null) throw new NullPointerException();// key和value不允许null

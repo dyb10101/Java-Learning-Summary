@@ -511,7 +511,7 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
     }
 
     /**
-	 * 默认实现的to'String方法
+	 * 默认实现的toString方法
 	 */
     public String toString() {
         fullyLock();
@@ -600,7 +600,7 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
                 }
                 return n;
             } finally {
-                // Restore invariants even if c.add() threw
+            	// 如果add抛出了异常。则进行恢复
                 if (i > 0) {
                     // assert h.item == null;
                     head = h;

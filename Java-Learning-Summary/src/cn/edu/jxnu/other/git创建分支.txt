@@ -1,0 +1,22 @@
+touch README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/jxnu-liguobin/SpringBoot-Seckill.git
+git push -u origin master
+
+
+在本地新建一个分支： git branch 分支名称
+切换到你的新分支: git checkout 分支名称
+将新分支发布在github上： git push origin 分支名称
+在本地删除一个分支： git branch -d 分支名称
+在github远程端删除一个分支： git push origin :分支名称   (分支名前的冒号代表删除)
+
+直接使用git pull和git push的设置
+git branch --set-upstream-to=origin/master master 
+git branch --set-upstream-to=origin/分支名称 分支名称
+git config --global push.default matching
+
+
+git reset 分支回滚到暂存区
+git checkout 暂存区回滚到工作区

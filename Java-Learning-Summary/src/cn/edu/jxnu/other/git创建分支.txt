@@ -18,5 +18,5 @@ git branch --set-upstream-to=origin/分支名称 分支名称
 git config --global push.default matching
 
 
-git reset 分支回滚到暂存区
-git checkout 暂存区回滚到工作区
+git reset 分支回滚到暂存区 【--hard 版本号，即回滚最后一次提交commit,--files】
+git checkout 暂存区回滚到工作区【回滚最后一次add操作,--files】

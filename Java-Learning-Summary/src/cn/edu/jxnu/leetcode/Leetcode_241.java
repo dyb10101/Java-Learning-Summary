@@ -21,14 +21,18 @@ import java.util.List;
 public class Leetcode_241 {
 
 	public static void main(String[] args) {
-		String iString = "2-1-1";
+		String iString = "+2-1-1";
 		List<Integer> list = new Leetcode_241().diffWaysToCompute(iString);
 		System.err.println(list);
 	}
 
 	public List<Integer> diffWaysToCompute(String input) {
 
-		List<Integer> ways = new ArrayList<>();
+		List<Integer> ways = new ArrayList<>();// 保存了2
+		if (input == null || input.length() == 0) {
+			return ways;
+		}
+
 		for (int i = 0; i < input.length(); i++) {
 			char c = input.charAt(i);
 			// 分治，以运算符分为左右两部分
@@ -56,9 +60,15 @@ public class Leetcode_241 {
 		}
 
 		// 添加
-		if (ways.size() == 0)
-			ways.add(Integer.valueOf(input));
-
+		if (ways.size() == 0) {
+			if (input.charAt(0) == '+') {
+				ways.add(Integer.valueOf(input.substring(1)));
+			} else if (input.charAt(0) == '-') {
+				ways.add(-1 * Integer.valueOf(input.substring(1)));
+			} else {
+				ways.add(Integer.valueOf(input));
+			}
+		}
 		return ways;
 	}
 }

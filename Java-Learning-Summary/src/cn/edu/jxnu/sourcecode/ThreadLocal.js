@@ -166,7 +166,7 @@ public class ThreadLocal<T> {
     }
 
     /**
-     * ThreadLocal最重要的数据结构
+	 * ThreadLocal最重要的数据结构
 	 */
     static class ThreadLocalMap {
 
@@ -205,56 +205,50 @@ public class ThreadLocal<T> {
         private int size = 0;
 
         /**
-         * 触发扩容的临界值
+		 * 触发扩容的临界值
 		 */
         private int threshold; // Default to 0
 
         /**
-         * 设置临界值
+		 * 设置临界值
 		 */
         private void setThreshold(int len) {
             threshold = len * 2 / 3;
         }
 
         /**
-		 * Increment i modulo len.
+		 * Increment i modulo len. 索引+1 1、放进最前面 2、放进i+1
 		 */
         private static int nextIndex(int i, int len) {
             return ((i + 1 < len) ? i + 1 : 0);
         }
 
         /**
-		 * Decrement i modulo len.
+		 * Decrement i modulo len. 1、放进i-1 2、放进len-1,最后
 		 */
         private static int prevIndex(int i, int len) {
             return ((i - 1 >= 0) ? i - 1 : len - 1);
         }
 
         /**
-		 * Construct a new map initially containing (firstKey, firstValue).
-		 * ThreadLocalMaps are constructed lazily, so we only create one when we
-		 * have at least one entry to put in it.
+		 * 构造方法，第一次使用
 		 */
         ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
-            table = new Entry[INITIAL_CAPACITY];
-            int i = firstKey.threadLocalHashCode & (INITIAL_CAPACITY - 1);
-            table[i] = new Entry(firstKey, firstValue);
-            size = 1;
-            setThreshold(INITIAL_CAPACITY);
+            table = new Entry[INITIAL_CAPACITY]; // 初始化16大小的数组
+            int i = firstKey.threadLocalHashCode & (INITIAL_CAPACITY - 1);// hash
+            table[i] = new Entry(firstKey, firstValue);// 第一个节点
+            size = 1;// 个数初始化为1
+            setThreshold(INITIAL_CAPACITY);// 根据默认的容量设置临界值
         }
 
         /**
-		 * Construct a new map including all Inheritable ThreadLocals from given
-		 * parent map. Called only by createInheritedMap.
-		 * 
-		 * @param parentMap
-		 *            the map associated with parent thread.
+		 * 构造方法，参数是ThreadLocalMap
 		 */
         private ThreadLocalMap(ThreadLocalMap parentMap) {
-            Entry[] parentTable = parentMap.table;
-            int len = parentTable.length;
-            setThreshold(len);
-            table = new Entry[len];
+            Entry[] parentTable = parentMap.table; // 得到数组
+            int len = parentTable.length;// 得到长度
+            setThreshold(len);// 设置临界
+            table = new Entry[len];// 创建容量相当的数组
 
             for (int j = 0; j < len; j++) {
                 Entry e = parentTable[j];
@@ -264,25 +258,18 @@ public class ThreadLocal<T> {
                     if (key != null) {
                         Object value = key.childValue(e.value);
                         Entry c = new Entry(key, value);
-                        int h = key.threadLocalHashCode & (len - 1);
+                        int h = key.threadLocalHashCode & (len - 1); // 计算索引，类似hashmap
                         while (table[h] != null)
-                            h = nextIndex(h, len);
-                        table[h] = c;
-                        size++;
+                            h = nextIndex(h, len); // 直到找到一个空的位置
+                        table[h] = c;// 设置
+                        size++;// 元素个数加+1
                     }
                 }
             }
         }
 
         /**
-		 * Get the entry associated with key. This method itself handles only
-		 * the fast path: a direct hit of existing key. It otherwise relays to
-		 * getEntryAfterMiss. This is designed to maximize performance for
-		 * direct hits, in part by making this method readily inlinable.
-		 * 
-		 * @param key
-		 *            the thread local object
-		 * @return the entry associated with key, or null if no such
+		 * 内部方法，获取entry
 		 */
         private Entry getEntry(ThreadLocal<?> key) {
             int i = key.threadLocalHashCode & (table.length - 1);
@@ -294,16 +281,7 @@ public class ThreadLocal<T> {
         }
 
         /**
-		 * Version of getEntry method for use when key is not found in its
-		 * direct hash slot.
 		 * 
-		 * @param key
-		 *            the thread local object
-		 * @param i
-		 *            the table index for key's hash code
-		 * @param e
-		 *            the entry at table[i]
-		 * @return the entry associated with key, or null if no such
 		 */
         private Entry getEntryAfterMiss(ThreadLocal<?> key, int i, Entry e) {
             Entry[] tab = table;
@@ -458,16 +436,7 @@ public class ThreadLocal<T> {
         }
 
         /**
-		 * Expunge a stale entry by rehashing any possibly colliding entries
-		 * lying between staleSlot and the next null slot. This also expunges
-		 * any other stale entries encountered before the trailing null. See
-		 * Knuth, Section 6.4
-		 * 
-		 * @param staleSlot
-		 *            index of slot known to have null key
-		 * @return the index of the next null slot after staleSlot (all between
-		 *         staleSlot and this slot will have been checked for
-		 *         expunging).
+		 * 通过重新哈希任何可能发生冲突的条目来删除陈旧条目
 		 */
         private int expungeStaleEntry(int staleSlot) {
             Entry[] tab = table;
@@ -506,29 +475,7 @@ public class ThreadLocal<T> {
         }
 
         /**
-		 * Heuristically scan some cells looking for stale entries. This is
-		 * invoked when either a new element is added, or another stale one has
-		 * been expunged. It performs a logarithmic number of scans, as a
-		 * balance between no scanning (fast but retains garbage) and a number
-		 * of scans proportional to number of elements, that would find all
-		 * garbage but would cause some insertions to take O(n) time.
-		 * 
-		 * @param i
-		 *            a position known NOT to hold a stale entry. The scan
-		 *            starts at the element after i.
-		 * 
-		 * @param n
-		 *            scan control: {@code log2(n)} cells are scanned, unless a
-		 *            stale entry is found, in which case
-		 *            {@code log2(table.length)-1} additional cells are scanned.
-		 *            When called from insertions, this parameter is the number
-		 *            of elements, but when from replaceStaleEntry, it is the
-		 *            table length. (Note: all this could be changed to be
-		 *            either more or less aggressive by weighting n instead of
-		 *            just using straight log n. But this version is simple,
-		 *            fast, and seems to work well.)
-		 * 
-		 * @return true if any stale entries have been removed.
+		 * 启发式地扫描一些单元格，寻找陈旧的条目。 如果已删除任何陈旧项，则为true。
 		 */
         private boolean cleanSomeSlots(int i, int n) {
             boolean removed = false;
@@ -547,20 +494,19 @@ public class ThreadLocal<T> {
         }
 
         /**
-		 * Re-pack and/or re-size the table. First scan the entire table
-		 * removing stale entries. If this doesn't sufficiently shrink the size
-		 * of the table, double the table size.
+		 * rehash
 		 */
         private void rehash() {
             expungeStaleEntries();
 
             // Use lower threshold for doubling to avoid hysteresis
+            // 使用较低的阈值加倍以避免迟滞。
             if (size >= threshold - threshold / 4)
                 resize();
         }
 
         /**
-		 * Double the capacity of the table.
+		 * 翻倍
 		 */
         private void resize() {
             Entry[] oldTab = table;
@@ -591,7 +537,7 @@ public class ThreadLocal<T> {
         }
 
         /**
-		 * Expunge all stale entries in the table.
+		 * 删除表中的所有陈旧项。
 		 */
         private void expungeStaleEntries() {
             Entry[] tab = table;

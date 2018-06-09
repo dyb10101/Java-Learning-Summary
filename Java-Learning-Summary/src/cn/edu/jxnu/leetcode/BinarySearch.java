@@ -15,15 +15,15 @@ package cn.edu.jxnu.leetcode;
  */
 public class BinarySearch {
 	public int search(int key, int[] arr) {
-		int l = 0, h = arr.length - 1;
-		while (l <= h) {
-			int mid = l + (h - l) / 2;
+		int left = 0, right = arr.length - 1;
+		while (left <= right) {
+			int mid = left + (right - left) / 2;
 			if (key == arr[mid])
 				return mid;
 			if (key < arr[mid])
-				h = mid - 1;
+				right = mid - 1;
 			else
-				l = mid + 1;
+				left = mid + 1;
 		}
 		return -1;
 	}

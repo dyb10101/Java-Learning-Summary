@@ -14,15 +14,15 @@
 
 7、[Java8 lambda](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/lambda)
 
-8、(Java NIO相关)[https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/nio]
+8、[Java NIO相关](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/nio)
 
-9、(动态代理)[https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/proxy]
+9、[动态代理](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/proxy)
 
-10、(Redis in action by Java)[https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/redis]
+10、[Redis in action by Java](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/redis)
 
-11、(反射)[https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/reflect]
+11、[反射](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/reflect)
 
-12、(数据库相关)[https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/sql]
+12、[数据库相关](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/sql)
 
 13、部分收集于网络，知晓原作者以及版权的则在package-info类中说明
 

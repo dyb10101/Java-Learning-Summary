@@ -7,7 +7,6 @@ import java.lang.reflect.Proxy;
 
 import sun.misc.ProxyGenerator;
 
-@SuppressWarnings("restriction")
 class RealSubject implements Subject {
 	public void doSomething() {
 		System.out.println("call doSomething()");
@@ -34,8 +33,7 @@ public class DynamicProxy {
 
 	public static void createProxyClassFile() {
 		String name = "ProxySubject";
-		// 下面只能在jdk1.7
-		@SuppressWarnings("restriction")
+		// 下面只能在jdk1.7，需要开启eclipse的sum包允许
 		byte[] data = ProxyGenerator.generateProxyClass(name, new Class[] { Subject.class });
 		try {
 			FileOutputStream out = new FileOutputStream(name + ".class");

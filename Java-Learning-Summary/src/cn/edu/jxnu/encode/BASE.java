@@ -13,6 +13,7 @@ import sun.misc.BASE64Encoder;
  * @author: 梦境迷离
  * @version 1.0 @time. 2018年4月17日
  */
+@SuppressWarnings("restriction")
 public class BASE {
 	/**
 	 * BASE解密

@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 /**
  * 通用逻辑接口
  * 
+ * 有必要时，可以对接口进行抽象进一步分层实现
+ * 
  * @author 梦境迷离.
  * @time 2018年6月13日
  * @version v1.0

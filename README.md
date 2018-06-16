@@ -8,7 +8,7 @@
 
    [总结图片](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/practice/picture)
 
-   [JDK常用来源码解析](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/sourcecode)
+   [JDK8常用来源码解析](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/sourcecode)
 
    [Java虚拟机相关](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/jvm/classloader)
 

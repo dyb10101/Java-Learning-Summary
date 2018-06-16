@@ -10,7 +10,7 @@ package cn.edu.jxnu.practice;
  */
 public class ReverseSentence {
 	public static void main(String[] args) {
-		String string = new ReverseSentence().reverseSentence(" ");
+		String string = new ReverseSentence().reverseSentence("student. a am I");
 		System.out.println(string);
 	}
 

@@ -28,6 +28,7 @@ public class Leetcode_583_LCS {
 					continue;
 				}
 				if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+					// 第i位结果依赖于第i-1位的结果值，所以从1开始
 					dp[i][j] = dp[i - 1][j - 1] + 1;// 相当，同时后移一位，否则，要么i移动，要么j移动
 				} else {
 					dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);

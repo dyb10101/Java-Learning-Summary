@@ -31,15 +31,6 @@ package cn.edu.jxnu.leetcode;
  */
 public class LengthOfLCS_Dp {
 
-	/**
-	 * @param args
-	 *
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public static int lengthOfLCS(int[] nums1, int[] nums2) {
 		int n1 = nums1.length, n2 = nums2.length;
 		int[][] dp = new int[n1 + 1][n2 + 1];

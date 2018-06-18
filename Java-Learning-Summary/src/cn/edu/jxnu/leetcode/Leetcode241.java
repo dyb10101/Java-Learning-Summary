@@ -18,11 +18,11 @@ import java.util.List;
  * @time 2018年6月6日
  * @version v1.0
  */
-public class Leetcode_241 {
+public class Leetcode241 {
 
 	public static void main(String[] args) {
 		String iString = "+2-1-1";
-		List<Integer> list = new Leetcode_241().diffWaysToCompute(iString);
+		List<Integer> list = new Leetcode241().diffWaysToCompute(iString);
 		System.err.println(list);
 	}
 

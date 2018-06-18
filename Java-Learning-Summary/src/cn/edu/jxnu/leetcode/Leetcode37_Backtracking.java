@@ -19,7 +19,7 @@ package cn.edu.jxnu.leetcode;
  * @time 2018年5月12日
  * @version v1.0
  */
-public class Leetcode_37_Backtracking {
+public class Leetcode37_Backtracking {
 
 	private boolean[][] rowsUsed = new boolean[9][10];
 	private boolean[][] colsUsed = new boolean[9][10];

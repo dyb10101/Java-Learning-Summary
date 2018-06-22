@@ -1,6 +1,8 @@
 package cn.edu.jxnu.practice;
 
 /**
+ * 参考：编程之美
+ * 
  * @description 计算n的阶乘中，末尾含有0的个数
  * @author Mr.Li
  * 
@@ -13,11 +15,6 @@ public class NumberOf0 {
 		System.out.println(n + "的阶乘中含有：" + result + "个0");
 	}
 
-	/**
-	 * @description 参考：编程之美
-	 * @param n
-	 * @return
-	 */
 	public static int NumberOf0_1(int n) {
 		int ret = 0;
 		int j;

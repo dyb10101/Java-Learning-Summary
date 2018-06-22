@@ -52,6 +52,8 @@ public class Leetcode_300_Dp {
 			// 更新dp数组
 			dp[i] = max;
 		}
+		// 速度慢
+		// return Arrays.stream(dp).max().orElse(0);
 		int ret = 0;
 		for (int i = 0; i < n; i++) {
 			ret = Math.max(ret, dp[i]);
@@ -61,14 +63,14 @@ public class Leetcode_300_Dp {
 	}
 
 	/**
-	 * 可以使用二分查找将时间复杂度降低为 O(NlogN)。 定义一个 tails 数组，其中 tails[i] 存储长度为 i + 1的最长递增子序列的最后一个元素。 
-	 * 如果有多个长度相等的最长递增子序列，那么 tails[i] 就取最小值。例如对于数组 [4,5,6,3] 有
+	 * 可以使用二分查找将时间复杂度降低为 O(NlogN)。 定义一个 tails 数组，其中 tails[i] 存储长度为 i +
+	 * 1的最长递增子序列的最后一个元素。 如果有多个长度相等的最长递增子序列，那么 tails[i] 就取最小值。例如对于数组 [4,5,6,3] 有
 	 * 
-	 * len =1 : [4], [5], [6], [3] 	=> tails[0] = 3
+	 * len =1 : [4], [5], [6], [3] => tails[0] = 3
 	 * 
-	 * len = 2 : [4, 5], [5, 6] 	=>tails[1] = 5
+	 * len = 2 : [4, 5], [5, 6] =>tails[1] = 5
 	 * 
-	 * len = 3 : [4, 5, 6] 			=> tails[2] = 6
+	 * len = 3 : [4, 5, 6] => tails[2] = 6
 	 * 
 	 * 对于一个元素 x，
 	 * 
@@ -77,13 +79,8 @@ public class Leetcode_300_Dp {
 	 * 数组的位置时就可以使用二分查找。
 	 */
 	/**
-	 *  if (nums[i] > tails[len  - 1]) {
-                tails[len++] = nums[i]; 
-            } else
-            {
-                int index = binarySearch(tails, 0, len - 1, nums[i]);
-                tails[index] = nums[i];
-            }
+	 * if (nums[i] > tails[len - 1]) { tails[len++] = nums[i]; } else { int index =
+	 * binarySearch(tails, 0, len - 1, nums[i]); tails[index] = nums[i]; }
 	 */
 	public static int lengthOfLIS2(int[] nums) {
 		int n = nums.length;

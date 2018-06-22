@@ -23,7 +23,7 @@ public class LinkedHashMapDemo1 {
 			if (!sMap.containsKey(c[i])) {
 				sMap.put(c[i], 1);
 			} else {
-				// 集合存在，记为1
+				// 集合存在，+1
 				sMap.put(c[i], sMap.get(c[i]) + 1);
 			}
 		}

@@ -34,7 +34,7 @@ public class Leetcode_169_Math {
 		int cnt = 0, majority = nums[0];
 		for (int num : nums) {
 			if (cnt == 0) {// 记录第一个元素
-				majority = num;
+				majority = num;// 重点：当cnt=0的时候需要更新majority，相当继续在接下来的n-i个元素中查找个数大于(n-i)/2的元素
 				cnt = 1;
 			} else {
 				// 当记录第二个元素的时候，如果元素不与majority相同，则cnt--，说明前面majority的次数少于一半

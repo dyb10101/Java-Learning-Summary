@@ -1,0 +1,45 @@
+touch README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/jxnu-liguobin/SpringBoot-Seckill.git
+git push -u origin master
+
+
+在本地新建一个分支： git branch 分支名称
+切换到你的新分支: git checkout 分支名称
+将新分支发布在github上： git push origin 分支名称
+在本地删除一个分支： git branch -d 分支名称
+在github远程端删除一个分支： git push origin :分支名称   (分支名前的冒号代表删除)
+
+直接使用git pull和git push的设置
+git branch --set-upstream-to=origin/master master 
+git branch --set-upstream-to=origin/分支名称 分支名称
+git config --global push.default matching
+
+
+git reset 分支回滚到暂存区 【--hard 版本号，即回滚最后一次提交commit,--files】
+git checkout 暂存区回滚到工作区【回滚最后一次add操作,--files】
+
+使用下面的关系区别这两个操作：
+git pull = git fetch + git merge
+git pull --rebase = git fetch + git rebase
+远程跟踪分支已更新(Git术语叫做commit)，需要将这些更新取回本地，这时就要用到git fetch
+
+git rebase --abort参数来终止rebase的行动，并且"mywork" 分支会回到rebase开始前的状态
+
+但是，如果你想让"mywork"分支历史看起来像没有经过任何合并一样【看不到合并的路径，不留提交痕迹】，可以用 git rebase
+
+git checkout mywork
+git rebase origin
+这些命令会把你的"mywork"分支里的每个提交(commit)取消掉，并且把它们临时 保存为补丁(patch)(这些补丁放到".git/rebase"目录中),
+然后把"mywork"分支更新 到最新的"origin"分支，最后把保存的这些补丁应用到"mywork"分支上。
+ 当'mywork'分支更新之后，它会指向这些新创建的提交(commit),而那些老的提交会被丢弃。 如果运行垃圾收集命令(pruning garbage collection), 
+ 这些被丢弃的提交就会删除. （请查看 git gc)
+ 
+ 在rebase的过程中，也许会出现冲突(conflict). 在这种情况，Git会停止rebase并会让你去解决 冲突；
+在解决完冲突后，用"git-add"命令去更新这些内容的索引(index), 然后，你无需执行 git-commit,只要执行:
+git rebase --continue
+ 
+ 
+ 

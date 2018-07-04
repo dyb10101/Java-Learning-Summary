@@ -1,5 +1,7 @@
 package cn.edu.jxnu.nio;
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -8,8 +10,6 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-
-import org.junit.Test;
 
 public class TestBlockingNIO2 {
 	

@@ -1,11 +1,11 @@
 package cn.edu.jxnu.nio;
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-
-import org.junit.Test;
 
 /**
  * @ClassName: NIODemo3.java

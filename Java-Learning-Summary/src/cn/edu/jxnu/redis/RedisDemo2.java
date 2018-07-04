@@ -1,17 +1,12 @@
 package cn.edu.jxnu.redis;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-
+import com.google.gson.Gson;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Tuple;
 
-import com.google.gson.Gson;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
 
 /**
  * @description 第二章 java版代码

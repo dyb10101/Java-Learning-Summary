@@ -1,5 +1,7 @@
 package cn.edu.jxnu.nio;
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -9,8 +11,6 @@ import java.nio.charset.CharsetEncoder;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
-import org.junit.Test;
 
 /**
  * @ClassName: NIODemo5.java

@@ -1,12 +1,12 @@
 package cn.edu.jxnu.nio;
 
+import org.junit.Test;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-
-import org.junit.Test;
 
 /**
  * @ClassName: NIODemo1.java

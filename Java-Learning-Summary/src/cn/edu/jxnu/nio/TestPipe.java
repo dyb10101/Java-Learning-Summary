@@ -1,10 +1,10 @@
 package cn.edu.jxnu.nio;
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.Pipe;
-
-import org.junit.Test;
 
 public class TestPipe {
 

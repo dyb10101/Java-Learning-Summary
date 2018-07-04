@@ -1,7 +1,7 @@
 package cn.edu.jxnu.practice;
 
-import java.util.Stack;
 import java.util.Arrays;
+import java.util.Stack;
 
 /**
  * @description 借用辅助栈存储min的大小，自定义了栈结构

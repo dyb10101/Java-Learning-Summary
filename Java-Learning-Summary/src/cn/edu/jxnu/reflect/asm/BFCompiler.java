@@ -1,13 +1,13 @@
 package cn.edu.jxnu.reflect.asm;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.util.Stack;
-
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.util.Stack;
 
 /**
  * A naive implementation of compiler for Brain**** language.

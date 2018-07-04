@@ -1,23 +1,15 @@
 package cn.edu.jxnu.redis;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-import java.util.UUID;
-import java.util.zip.CRC32;
-
 import org.javatuples.Pair;
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.ZParams;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.zip.CRC32;
 
 public class RedisDemo9 {
     private static final String[] COUNTRIES = (

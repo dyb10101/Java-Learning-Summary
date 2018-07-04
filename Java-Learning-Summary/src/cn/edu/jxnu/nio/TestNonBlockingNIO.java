@@ -1,5 +1,7 @@
 package cn.edu.jxnu.nio;
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -10,8 +12,6 @@ import java.nio.channels.SocketChannel;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Scanner;
-
-import org.junit.Test;
 
 /*
  * 一、使用 NIO 完成网络通信的三个核心：

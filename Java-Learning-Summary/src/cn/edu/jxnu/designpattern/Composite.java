@@ -1,6 +1,6 @@
 package cn.edu.jxnu.designpattern;
 
-import java.awt.Component;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**   

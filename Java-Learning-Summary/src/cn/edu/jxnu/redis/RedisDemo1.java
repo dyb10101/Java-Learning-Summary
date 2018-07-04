@@ -1,12 +1,9 @@
 package cn.edu.jxnu.redis;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.ZParams;
+
+import java.util.*;
 
 /**
  * @description 第一章java版例题 redis 2.6
@@ -206,7 +203,8 @@ public class RedisDemo1 {
 		if (!conn.exists(key)) {
 			/* 根据发布时间和评分进行排序 */
 
-			ZParams params = new ZParams().aggregate(ZParams.Aggregate.MAX);
+			ZParams params;
+			params = new ZParams().aggregate(ZParams.Aggregate.MAX);
 			/* 进行稽核交集运算 存入key集合 */
 
 			conn.zinterstore(key, params, "group:" + group, order);

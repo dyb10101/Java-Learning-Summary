@@ -1,11 +1,11 @@
 package cn.edu.jxnu.nio;
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-
-import org.junit.Test;
 
 /**
  * @ClassName: NIODemo4.java

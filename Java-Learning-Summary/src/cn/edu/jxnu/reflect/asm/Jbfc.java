@@ -1,12 +1,12 @@
 package cn.edu.jxnu.reflect.asm;
 
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.util.TraceClassVisitor;
+
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.util.TraceClassVisitor;
 
 /**
  * A naive implementation of compiler for Brain**** language.

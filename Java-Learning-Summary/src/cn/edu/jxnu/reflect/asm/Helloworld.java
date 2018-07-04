@@ -1,14 +1,14 @@
 package cn.edu.jxnu.reflect.asm;
 
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.commons.GeneratorAdapter;
 import org.objectweb.asm.commons.Method;
+
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 
 /**
  * 演示动态生成类，该类的main方法打印Hello World

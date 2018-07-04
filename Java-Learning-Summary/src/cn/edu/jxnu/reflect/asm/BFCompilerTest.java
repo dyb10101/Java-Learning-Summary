@@ -1,14 +1,10 @@
 package cn.edu.jxnu.reflect.asm;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.io.StringReader;
+import org.objectweb.asm.ClassWriter;
+
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import org.objectweb.asm.ClassWriter;
 
 /**
  * A naive implementation of compiler for Brain**** language.

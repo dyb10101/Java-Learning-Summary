@@ -1,23 +1,14 @@
 package cn.edu.jxnu.reflect.asm;
 
-import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
-import static org.objectweb.asm.Opcodes.ACC_STATIC;
-import static org.objectweb.asm.Opcodes.ALOAD;
-import static org.objectweb.asm.Opcodes.ARETURN;
-import static org.objectweb.asm.Opcodes.DUP;
-import static org.objectweb.asm.Opcodes.H_INVOKESTATIC;
-import static org.objectweb.asm.Opcodes.IFEQ;
-import static org.objectweb.asm.Opcodes.IFNE;
-import static org.objectweb.asm.Opcodes.POP;
-import static org.objectweb.asm.Opcodes.V1_7;
-
-import java.io.FileOutputStream;
-import java.lang.reflect.Method;
-
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Handle;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
+
+import java.io.FileOutputStream;
+import java.lang.reflect.Method;
+
+import static org.objectweb.asm.Opcodes.*;
 
 /**
  * @author Remi Forax

@@ -40,7 +40,7 @@ public class Leetcode_205_String {
 			char c1 = s.charAt(i);
 			char c2 = t.charAt(i);
 			if (hm.containsKey(c1)) {
-				// 若c1在集合中，判断c2和当前c2是否是相当
+				// 若c1在集合中，判断c2和当前c2是否是相等
 				if (hm.get(c1) == c2)
 					continue;// 字符可以被字符自己替换
 				else

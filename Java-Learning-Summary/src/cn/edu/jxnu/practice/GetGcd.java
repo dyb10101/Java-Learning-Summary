@@ -2,17 +2,15 @@ package cn.edu.jxnu.practice;
 
 /**
  * 使用位操作和减法求解最大公约数
-
-	编程之美：2.7
-	
-	对于 a 和 b 的最大公约数 f(a, b)，有：
-	
-	如果 a 和 b 均为偶数，f(a, b) = 2*f(a/2, b/2);
-	如果 a 是偶数 b 是奇数，f(a, b) = f(a/2, b);
-	如果 b 是偶数 a 是奇数，f(a, b) = f(a, b/2);
-	如果 a 和 b 均为奇数，f(a, b) = f(b, a-b);
-	乘 2 和除 2 都可以转换为移位操作。
-	
+ * 
+ * 编程之美：2.7
+ * 
+ * 对于 a 和 b 的最大公约数 f(a, b)，有：
+ * 
+ * 如果 a 和 b 均为偶数，f(a, b) = 2*f(a/2, b/2); 如果 a 是偶数 b 是奇数，f(a, b) = f(a/2, b); 如果
+ * b 是偶数 a 是奇数，f(a, b) = f(a, b/2); 如果 a 和 b 均为奇数，f(a, b) = f(b, a-b); 乘 2 和除 2
+ * 都可以转换为移位操作。
+ * 
  * @author 梦境迷离.
  * @time 2018年6月22日
  * @version v1.0
@@ -50,7 +48,7 @@ public class GetGcd {
 	}
 
 	// 最大公约数
-	// 1、a == 0,返回b
+	// 1、b == 0,返回a
 	// 2、a = b,b = a % b
 	public static int gcd2(int a, int b) {
 		return b == 0 ? a : gcd(b, a % b);

@@ -30,8 +30,8 @@ public class Brackets {
 				right += 1;
 			}
 			ans = Math.max(ans, right - left);
-		}
-		if (left == right && ans <= 1 && left >= 2) {
+		} // ()(),1-1,ans=0|2-2,ans=0
+		if (left == right && ans <= 1 && left >= 2) {// ()，left=1
 			return "Yes";
 		}
 		return "NO";

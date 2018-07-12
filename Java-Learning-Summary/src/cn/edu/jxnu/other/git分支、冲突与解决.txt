@@ -41,5 +41,24 @@ git rebase origin
 在解决完冲突后，用"git-add"命令去更新这些内容的索引(index), 然后，你无需执行 git-commit,只要执行:
 git rebase --continue
  
+增加
+1、git status查看状态
+2、git merge master将master合并到当前分支
+3、mvn clean deploy 清理并发布
+4、mvn dependency:tree 查看依赖树
+5、git log -p 查看日志
+6、mvn clean compile -U  编译
+7、git checkout master 切换到master
+8、git pull –rebase    rebase 并不会产生一个commit提交
+9、git diff 查看对比两次文件内容具体修改了什么
+10、git diff HEAD -- <filename> （“--”前后有空格），可以查看工作区和版本库里面最新版本的区别	
+		HEAD 表示当前版本，也就是最新的提交。上一个版本就是 HEAD^ ，上上一个版本就是 HEAD^^ ，
+往上100个版本写100个 “ ^ ” 比较容易数不过来，所以写成 HEAD~100 。HEAD~2 相当于 HEAD^^
+
+11、git checkout -b newBrach origin/master在origin/master的基础上，创建一个新分支:newBrach
+12、git fetch origin master 取回origin主机的master分支
+13、git fetch
+上面命令将某个远程主机的更新，全部取回本地。默认情况下，git fetch取回所有分支的更新
+
  
  

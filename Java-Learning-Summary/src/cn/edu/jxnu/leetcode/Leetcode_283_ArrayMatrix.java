@@ -12,7 +12,7 @@ package cn.edu.jxnu.leetcode;
  * @time 2018年7月11日
  * @version v1.0
  */
-public class Leetcode_283_Array_Matrix {
+public class Leetcode_283_ArrayMatrix {
 
 	public void moveZeroes(int[] nums) {
 		int idx = 0;

@@ -3,7 +3,7 @@
    [剑指offer题目,包含牛客网一些大佬的多种解法,含部分编程之美与企业试卷的题目](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/practice)
 
    [Java For Leetcode](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/leetcode)
-   [Scala For Leetcode](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/leetcode/scala)
+   | [Scala For Leetcode](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/leetcode/scala)
 
    [排序算法](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/sort)
 

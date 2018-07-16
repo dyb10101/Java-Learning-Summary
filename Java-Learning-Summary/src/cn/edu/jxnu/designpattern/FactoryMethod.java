@@ -21,7 +21,7 @@ package cn.edu.jxnu.designpattern;
 public class FactoryMethod extends Creator {
 	// Product为抽象产品类负责定义产品的共性，实现对事物最抽象的定义；
 	// Creator为抽象创建类，也就是抽象工厂，具体如何创建产品类是由具体的实现工厂FactoryMethod完成的。
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public <T extends Product> T createProduct(Class<T> c) {
 		Product product = null;
 		try {

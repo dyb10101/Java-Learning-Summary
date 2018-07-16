@@ -38,6 +38,7 @@ public class Annotations {
 
 					private final List<Integer> params = new ArrayList<Integer>();
 
+					@SuppressWarnings("deprecation")
 					@Override
 					public AnnotationVisitor visitParameterAnnotation(final int parameter, final String desc,
 							final boolean visible) {

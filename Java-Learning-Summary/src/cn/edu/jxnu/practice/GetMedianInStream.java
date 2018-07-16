@@ -62,6 +62,7 @@ public class GetMedianInStream {
 		count++;
 	}
 
+	@SuppressWarnings("deprecation")
 	public Double getMedian2() {
 		// 当个数为偶数的时候，小根堆和大根堆的顶的一半就是中位数
 		if (count % 2 == 0) {

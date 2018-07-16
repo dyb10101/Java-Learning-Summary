@@ -24,6 +24,7 @@ public class Compile extends ClassLoader {
 		fos.close();
 		Class<?> expClass = main.defineClass("Example", b, 0, b.length);
 		// 实例化这个已编译的表达式类.
+		@SuppressWarnings("deprecation")
 		Expression iexp = (Expression) expClass.newInstance();
 		// 并将其用于判断exp(0)到exp(9)
 		for (int i = 0; i < 10; ++i) {
@@ -85,6 +86,7 @@ class Cst extends Exp {
 		this.value = value;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	void compile(final MethodVisitor mv) {
 		// 将常量的值压入堆栈上
@@ -169,6 +171,7 @@ class GT extends BinaryExp {
 		super(e1, e2);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	void compile(final MethodVisitor mv) {
 		// 编译e1、e2，并添加用于比较这两个值的说明
@@ -253,6 +256,7 @@ class Not extends Exp {
 		this.e = e;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	void compile(final MethodVisitor mv) {
 		// 通过计算1-e1来计算!e1

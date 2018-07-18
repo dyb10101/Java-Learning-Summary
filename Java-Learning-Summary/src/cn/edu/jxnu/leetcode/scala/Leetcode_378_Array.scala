@@ -16,7 +16,7 @@ package cn.edu.jxnu.leetcode.scala
  * @time 2018年7月18日
  * @version v1.0
  */
-object Leetcode_378_Array extends App {
+object Leetcode_378_Array extends App { //自带main方法
 
     /**
      * 函数的定义必须在调用之前

@@ -31,7 +31,7 @@ object Leetcode_378_Array extends App {
             var cnt = 0
             for (i ← 0 until m) {
                 for (j ← 0 until n if matrix(i)(j) <= mid) {
-                    cnt = cnt + 1
+                    cnt += 1 //scala没++  --
                 }
             }
             if (cnt < k) lo = mid + 1

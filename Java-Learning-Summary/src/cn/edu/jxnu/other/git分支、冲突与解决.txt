@@ -19,7 +19,7 @@ git config --global push.default matching
 
 
 git reset 分支回滚到暂存区 【--hard 版本号，即回滚最后一次提交commit,--files】
-git checkout 暂存区回滚到工作区【回滚最后一次add操作,--files】
+git checkout 暂存区回滚到工作区【回滚最后一次add操作,--files】 -b branch  在本地创建并切换到branch分支
 
 使用下面的关系区别这两个操作：
 git pull = git fetch + git merge
@@ -42,9 +42,9 @@ git rebase origin
 git rebase --continue
  
 增加
-1、git status查看状态
+1、git status查看状态   
 2、git merge master将master合并到当前分支
-3、mvn clean deploy 清理并发布
+3、mvn clean deploy 清理并发布    mvn install -Dmaven.test.skip=true 跳过测试打包
 4、mvn dependency:tree 查看依赖树
 5、git log -p 查看日志
 6、mvn clean compile -U  编译

@@ -9,7 +9,7 @@
 
    [总结图片](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/practice/picture)
 
-   [JDK8常用来源码解析](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/sourcecode)
+   [JDK8常用类源码解析](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/sourcecode)
 
    [Java虚拟机相关](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/jvm/classloader)
 
@@ -19,13 +19,11 @@
 
    [动态代理](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/proxy)
 
-   [Redis in action by Java](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/redis)
+   [Redis in action Java源码](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/redis)
 
-   [反射与ASM](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/reflect/asm)
+   [反射与ASM框架实例](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/reflect/asm)
 
    [数据库相关](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/sql)
 
-   部分收集于网络，知晓原作者以及版权的则在package-info类中说明
-
-
-    loading。。。
+      部分收集于网络，知晓原作者以及版权的则在package-info类中说明
+      loading。。。

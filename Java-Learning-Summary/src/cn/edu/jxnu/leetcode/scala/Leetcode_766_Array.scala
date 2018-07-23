@@ -12,7 +12,7 @@ package cn.edu.jxnu.leetcode.scala
  * In the above grid, the diagonals are "[9]", "[5, 5]", "[1, 1, 1]", "[2, 2, 2]", "[3, 3]", "[4]",
  * and in each diagonal all elements are the same, so the answer is True.
  * @author 梦境迷离
- * @time 2018年7月19日
+ * @time 2018年7月23日
  * @version v1.0
  */
 object Leetcode_766_Array extends App {

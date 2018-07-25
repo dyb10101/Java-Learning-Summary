@@ -4,6 +4,8 @@
 
    [Java For Leetcode](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/leetcode)
    | [Scala For Leetcode](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/leetcode/scala)
+ 
+   [Java 多线程总结](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/concurrent/%E5%A4%9A%E7%BA%BF%E7%A8%8B.md)
 
    [排序算法](https://github.com/jxnu-liguobin/Java-Learning-Summary/tree/master/Java-Learning-Summary/src/cn/edu/jxnu/sort)
 

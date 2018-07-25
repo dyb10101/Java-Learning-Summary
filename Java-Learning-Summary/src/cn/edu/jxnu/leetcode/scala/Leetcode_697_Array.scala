@@ -46,7 +46,7 @@ object Leetcode_697_Array extends App {
       }
     }
 
-    return minLen
+    minLen
   }
 
 }

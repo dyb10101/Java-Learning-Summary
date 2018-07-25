@@ -33,13 +33,13 @@ object Leetcode_160_ListNode extends App {
   	
    def getIntersectionNode( headA:ListNode,  headB:ListNode):ListNode= {
       var l1 = headA
-      var l2 = headB;
+      var l2 = headB
       while (l1 != l2) {
           l1 = if (l1 == null)  headB else l1.next
-          l2 = if(l2 == null)  headA else  l2.next;
+          l2 = if(l2 == null)  headA else  l2.next
       }
       l1.next=null
-      return l1;
+      l1
   }
 
 }

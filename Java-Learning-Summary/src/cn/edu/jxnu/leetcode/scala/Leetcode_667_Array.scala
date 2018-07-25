@@ -30,7 +30,7 @@ object Leetcode_667_Array extends App {
     for (i <- k + 1 until n) {
       ret(i) = i + 1
     }
-    return ret
+    ret
   }
 
   val ret = constructArray(3, 2)

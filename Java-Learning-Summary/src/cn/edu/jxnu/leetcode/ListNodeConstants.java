@@ -15,11 +15,7 @@ public class ListNodeConstants {
 	static ListNode node6 = new ListNode(2);
 	static ListNode node7 = new ListNode(6);
 
-	/**
-	 * 通用测试链表--短
-	 * 
-	 * @return
-	 */
+	// 通用测试链表--短
 	public static ListNode getListNodeOne() {
 
 		node.next = node1;
@@ -34,10 +30,7 @@ public class ListNodeConstants {
 
 	}
 
-	/**
-	 * 通用测试使用的链表--长
-	 * @return
-	 */
+	// 通用测试使用的链表--长
 	public static ListNode getListNodeTwo() {
 
 		nodep.next = nodef;
@@ -52,6 +45,42 @@ public class ListNodeConstants {
 		node6.next = node7;
 		node7.next = null;
 		return node;
+
+	}
+
+	// 有序链表A
+	public static ListNode getOrderListA() {
+		node.next = node1;
+		node1.next = nodef;
+		nodef.next = node5;
+		node5.next = null;
+		return node;
+
+	}
+
+	// 有序链表B
+	public static ListNode getOrderListB() {
+		nodep.next = nodeh;
+		nodeh.next = node4;
+		node4.next = node7;
+		node7.next = null;
+		return nodep;
+
+	}
+
+	// 包含重复的链表
+	public static ListNode getHasDuplicate() {
+		ListNode node8 = new ListNode(6);
+		ListNode node9 = new ListNode(6);
+
+		nodep.next = nodeh;
+		nodeh.next = node4;
+		node4.next = node7;
+		node7.next = node8;
+		node8.next = node9;
+		node9.next = null;
+
+		return nodep;
 
 	}
 }

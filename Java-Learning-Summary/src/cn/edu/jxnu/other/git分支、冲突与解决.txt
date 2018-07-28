@@ -60,5 +60,27 @@ git rebase --continue
 13、git fetch
 上面命令将某个远程主机的更新，全部取回本地。默认情况下，git fetch取回所有分支的更新
 
- 
+git checkout master     #//取出master版本的head。
+git checkout tag_name    #//在当前分支上 取出 tag_name 的版本
+git checkout  master file_name  #//放弃当前对文件file_name的修改
+git checkout  commit_id file_name  #//取文件file_name的 在commit_id是的版本。commit_id为 git commit 时的sha值。
+
+git checkout -b dev/1.5.4 origin/dev/1.5.4
+
+从远程dev/1.5.4分支取得到本地分支/dev/1.5.4
+git checkout -- hello.rb
+这条命令把hello.rb从HEAD中签出.
+git checkout .
+这条命令把 当前目录所有修改的文件 从HEAD中签出并且把它恢复成未修改时的样子.
+注意：在使用 git checkout 时，如果其对应的文件被修改过，那么该修改会被覆盖掉。
+
+git rebase --abort 会回到rebase操作之前的状态，之前的提交的不会丢弃；
+git rebase --skip 则会将引起冲突的commits丢弃掉；
+git rebase --continue 用于修复冲突，提示开发者，一步一步地有没有解决冲突，fix conflicts and then run "git rebase --continue"
+
+解决冲突主要流程
+	合并分支到本开发分支，或者git pull --rebase拉去下来
+	查看冲突文件，并去除冲突提示注释和冲突部分代码
+	执行git add 将修改完后的冲突文件添加进索引【stage 暂存区，位于工作区和当前分支之间】
+	执行git rebase --continue 继续合并
  

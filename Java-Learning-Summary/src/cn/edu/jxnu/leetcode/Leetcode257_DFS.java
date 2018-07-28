@@ -34,10 +34,10 @@ public class Leetcode257_DFS {
 		if (root == null)
 			return;
 		if (root.left == null && root.right == null) {
-			ret.add(prefix + root.val);
+			ret.add(prefix + root.value);
 			return;
 		}
-		prefix += (root.val + "->");
+		prefix += (root.value + "->");
 		dfs(root.left, prefix, ret);
 		dfs(root.right, prefix, ret);
 	}

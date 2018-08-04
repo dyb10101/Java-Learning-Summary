@@ -187,7 +187,7 @@ Expires, Cache-Control，和/或Vary，假如其值可能与之前相同变量�
 * 400 Bad Request
 1、语义有误，当前请求无法被服务器理解。除非进行修改，否则客户端不应该重复提交这个请求。
 2、请求参数有误。
-401 Unauthorized
+* 401 Unauthorized
 当前请求需要用户验证。该响应必须包含一个适用于被请求资源的 WWW-Authenticate 信息头用以询问用户信息。客户端可以重复提交一个包含恰当的 Authorization 头信息的请求。如果当前请求已经包含了 Authorization 证书，那么401响应代表着服务器验证已经拒绝了那些证书。
 如果401响应包含了与前一个响应相同的身份验证询问，且浏览器已经至少尝试了一次验证，那么浏览器应当向用户展示响应中包含的实体信息，因为这个实体信息中可能包含了相关诊断信息。参见RFC 2617。
 * 402 Payment Required
@@ -239,7 +239,7 @@ Expires, Cache-Control，和/或Vary，假如其值可能与之前相同变量�
 这个响应也被禁止使用 multipart/byteranges 作为其 Content-Type。
 * 417 Expectation Failed
 在请求头 Expect 中指定的预期内容无法被服务器满足，或者这个服务器是一个代理服务器，它有明显的证据证明在当前路由的下一个节点上，Expect 的内容无法被满足。
-* 421T here are too many connections from your internet address
+* 421 There are too many connections from your internet address
 从当前客户端所在的IP地址到服务器的连接数超过了服务器许可的最大范围。通常，这里的IP地址指的是从服务器上看到的客户端地址（比如用户的网关或者代理服务器地址）。在这种情况下，连接数的计算可能涉及到不止一个终端用户。
 * 422 Unprocessable Entity
 请求格式正确，但是由于含有语义错误，无法响应。（RFC 4918 WebDAV）
@@ -274,7 +274,7 @@ Expires, Cache-Control，和/或Vary，假如其值可能与之前相同变量�
 注意：某些代理服务器在DNS查询超时时会返回400或者500错误
 * 505 HTTP Version Not Supported
 服务器不支持，或者拒绝支持在请求中使用的 HTTP 版本。这暗示着服务器不能或不愿使用与客户端相同的版本。响应中应当包含一个描述了为何版本不被支持以及服务器支持哪些协议的实体。
-506 Variant Also Negotiates
+* 506 Variant Also Negotiates
 由《透明内容协商协议》（RFC 2295）扩展，代表服务器存在内部配置错误：被请求的协商变元资源被配置为在透明内容协商中使用自己，因此在一个协商处理中不是一个合适的重点。
 * 507 Insufficient Storage
 服务器无法存储完成请求所必须的内容。这个状况被认为是临时的。WebDAV (RFC 4918)

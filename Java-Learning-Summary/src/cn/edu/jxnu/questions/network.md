@@ -19,6 +19,7 @@ e.g.一个报文段的序号为300，此报文段数据部分共有100字节，�
 * 保留：为将来定义新的用途保留，现在一般置0。
 
 * 控制位：URG  ACK  PSH  RST  SYN  FIN，共6个，每一个标志位表示一个控制功能。<br>
+
 		1）URG：紧急指针标志，为1时表示紧急指针有效，为0则忽略紧急指针。<br>
 		2）ACK：确认序号标志，为1时表示确认号有效，为0表示报文中不含确认信息，忽略确认号字段。<br>
 		3）PSH：push标志，为1表示是带有push标志的数据，指示接收方在接收到该报文段以后，应尽快将这个报文段交给应用程序，而不是在缓冲区排队。<br>
@@ -523,16 +524,17 @@ SO_LINGER涉及到linger结构体，如果设置结构体中l_onoff为非0，l_l
 
 SSL位于应用层于传输层TCP之间，原本数据由应用层直接交由传输层处理，现在会经过SSL加密再进行传输<br>
 https要比http更加安全一些，也就是说https协议是由ssl+http协议构建的可进行加密传输、身份验证的网络协议要比http协议安全，现在大多数的网站都逐渐用https<br>
-因为安全问题太重要了，有很多的网站都被攻破了，用户数据被泄露。全站https将是以后网络发展的趋势，国外很多站点都是实行的全站https,中国人对信息安全好像还不是特别重视，甚至很多登录支付页面的是http<br>
-http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。<br>
-https协议需要到ca申请证书，一般需要额外支出<br>
-[SSL与TLS最简洁概括]()
+因为安全问题太重要了，有很多的网站都被攻破了，用户数据被泄露。全站https将是以后网络发展的趋势，国外很多站点都是实行的全站https<br>
+http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。同时由于加密解密需要消耗CPU等系统资源，所以https会慢<br>
+https协议需要到ca申请证书，一般需要额外支出，此外还有一点需要注意的是，无论https、https、等其他协议，它们的端口虽然推荐标准有默认值且众所周知，但是也带来了被攻击的危险性，实际上很多时候不会使用该端口，一般只有前端会使用<br>
+[SSL与TLS最简洁概括](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/questions/SSL%E4%B8%8ETls%E6%A6%82%E8%BF%B0.txt)
 
 ### 11.IP地址子网划分 
 
 参考RFC:<br>
 http://www.cnpaf.net/rfc/rfc932.txt  <br>
 http://www.cnpaf.net/Class/RFC/200408/894.html  <br>
+这种不懂就看RFC
 
 ### 12.Post和Get请求的异同
 

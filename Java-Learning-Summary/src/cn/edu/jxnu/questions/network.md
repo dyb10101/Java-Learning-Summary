@@ -608,9 +608,25 @@ http://www.cnpaf.net/Class/RFC/200408/894.html  <br>
 
 ### 14. TCP如何保证数据的可靠传输的
 
+<<<<<<< HEAD
 1、四种TCP拥塞控制算法 RFC2581 http://www.cnpaf.net/Class/RFC/200408/1000.html
 		
 		慢启动
+=======
+待完成
+
+1、拥塞控制慢开始
+
+2、拥塞避免
+
+3、快重传
+
+4、滑动窗口协议
+
+5、停止等待协议
+
+6、超时重传机制
+>>>>>>> refs/remotes/origin/master
 
 		拥塞避免
 

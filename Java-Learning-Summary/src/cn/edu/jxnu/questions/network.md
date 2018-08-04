@@ -378,6 +378,18 @@ Vary: Content-Encoding那么 Cache 服务器会分析后续请求消息的头部
 * 单个cookie在客户端的限制是3K，就是说一个站点在客户端存放的COOKIE不能超过3K；【4k不到，chrome最大，个数一般50】
 * 子域名可以访问父域名的cookie而父域名不可以访问子域名的cookie
 
+2、虽然session依赖cookie实现，但这并不是绝对的
+
+其他实现方法
+
+* 基于URL Path Parameter 默认支持
+* 基于Cookie 如果没用修改Context容器的标识，则默认也支持  
+* 基于SSL 默认不支持，connector.getAttribute("SSLEnabled")为True是支持
+* Context是tomcat架构中的容器之一，定义在host容器中，同时war包必须依赖host容器解析web.xml，而SpringBoot jar包不需要
+* Connector是tomcat核心组件负责接受请求，也是容器的顶级父接口，所有容器必须实现Connector接口
+* 容器：Tomcat>Container>Engine>Host>Servlet>Context>Wrapper 【Engine、Host是非必需，Wrapper是使用门面设计模式，安全暴露数据】
+* 详情请阅读Tomcat架构设计相关书籍
+
 ### 8.TCP三次握手、四次挥手
 
 1、三次握手

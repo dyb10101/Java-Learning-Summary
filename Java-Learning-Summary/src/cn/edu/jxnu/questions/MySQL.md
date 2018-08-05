@@ -223,6 +223,13 @@ InnoDb
 * 最好使用自增主键，防止插入数据时，为维持B+树结构，文件的大调整。
 * 适用OLTP
 
+InnoDB主要特性
+
+主要包括：插入缓存（insert buffer）、两次写(double write)、自适应哈希(Adaptive Hash index)、异步IO(Async IO)、刷新邻接页(Flush Neighbor Page)
+
+感兴趣可以参考书籍《MySQL技术内幕:innodb存储引擎》
+网上找了一个博客[InnoDB关键特性](https://blog.csdn.net/mysql_lover/article/details/54617765)
+
 ### 6、索引有B+索引和hash索引，各自的区别？
 
 主要区别

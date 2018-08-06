@@ -19,20 +19,20 @@
 ### 3.Java内存模型FAQ（三）JSR133是什么？
 
 * 从1997年以来，人们不断发现Java语言规范的17章定义的Java内存模型中的一些严重的缺陷。这些缺陷会导致一些使人迷惑的行为（例如final字段会被观察到值的改变）和破坏编译器常见的优化能力。
-
 * Java内存模型是一个雄心勃勃的计划，它是编程语言规范第一次尝试合并一个能够在各种处理器架构中为并发提供一致语义的内存模型。不过，定义一个既一致又直观的内存模型远比想象要更难。JSR133为Java语言定义了一个新的内存模型，它修复了早期内存模型中的缺陷。为了实现JSR133，final和volatile的语义需要重新定义。
-* 完整的语义见：[Java内存模型](http://www.cs.umd.edu/users/pugh/java/memoryModel/)<br>
+* 完整的语义见: [Java内存模型](http://www.cs.umd.edu/users/pugh/java/memoryModel/)<br>
 * 但是正式的语义不是小心翼翼的，它是令人惊讶和清醒的，目的是让人意识到一些看似简单的概念（如同步）其实有多复杂。幸运的是，你不需要懂得这些正式语义的细节——JSR133的目的是创建一组正式语义，这些正式语义提供了volatile、synchronzied和final如何工作的直观框架。
 
 JSR 133的目标包含了
 
-* 保留已经存在的安全保证（像类型安全）以及强化其他的安全保证。例如，变量值不能凭空创建：线程观察到的每个变量的值必须是被其他线程合理的设置的。
-* 正确同步的程序的语义应该尽量简单和直观。
-* 应该定义未完成或者未正确同步的程序的语义，主要是为了把潜在的安全危害降到最低。
-* 程序员应该能够自信的推断多线程程序如何同内存进行交互的。
-* 能够在现在许多流行的硬件架构中设计正确以及高性能的JVM实现。
-* 应该能提供安全地初始化的保证。如果一个对象正确的构建了（意思是它的引用没有在构建的时候逸出，那么所有能够看到这个对象的引用的线程，在不进行同步的情况下，也将能看到在构造方法中中设置的final字段的值。
-* 应该尽量不影响现有的代码。
+1. 保留已经存在的安全保证（像类型安全）以及强化其他的安全保证。例如，变量值不能凭空创建：线程观察到的每个变量的值必须是被其他线程合理的设置的。
+2. 正确同步的程序的语义应该尽量简单和直观。
+3. 应该定义未完成或者未正确同步的程序的语义，主要是为了把潜在的安全危害降到最低。
+4. 程序员应该能够自信的推断多线程程序如何同内存进行交互的。
+5. 能够在现在许多流行的硬件架构中设计正确以及高性能的JVM实现。
+6. 应该能提供安全地初始化的保证。如果一个对象正确的构建了
+（意思是它的引用没有在构建的时候逸出，那么所有能够看到这个对象的引用的线程，在不进行同步的情况下，也将能看到在构造方法中中设置的final字段的值。
+7. 应该尽量不影响现有的代码。
 
 ### 4.重排序意味着什么？
 
@@ -47,7 +47,7 @@ JSR 133的目标包含了
 
 * 例如，一个被广泛认可的概念就是，如果使用final字段，那么就没有必要在多个线程中使用同步来保证其他线程能够看到这个字段的值。尽管这是一个合理的假设和明显的行为，也是我们所期待的结果。实际上，在旧的内存模型中，我们想让程序正确运行起来却是不行的。在旧的内存模型中，final字段并没有同其他字段进行区别对待——这意味着同步是保证所有线程看到一个在构造方法中初始化的final字段的唯一方法。结果——如果没有正确同步的话，对一个线程来说，它可能看到一个字段的默认值，然后在稍后的时间里，又能够看到构造方法中设置的值。这意味着，一些不可变的对象，例如String，能够改变它们值——这实在很让人郁闷。这里是因为String类型默认null,而初始化是我们自定义的值，也就是两种不同的值，仿佛String是可变的一样
 * 旧的内存模型允许volatile变量的写操作和非volaitle变量的读写操作一起进行重排序，这和大多数的开发人员对于volatile变量的直观感受是不一致的，因此会造成迷惑。
-*最后，我们将看到的是，程序员对于程序没有被正确同步的情况下将会发生什么的直观感受通常是错误的。JSR-133的目的之一就是要引起这方面的注意。
+* 最后，我们将看到的是，程序员对于程序没有被正确同步的情况下将会发生什么的直观感受通常是错误的。JSR-133的目的之一就是要引起这方面的注意。
 
 ### 6.没有正确同步的含义是什么？
 
@@ -64,13 +64,13 @@ JSR 133的目标包含了
 * 同步有几个方面的作用。最广为人知的就是互斥 ——一次只有一个线程能够获得一个监视器，因此，在一个监视器上面同步意味着一旦一个线程进入到监视器保护的同步块中，其他的线程都不能进入到同一个监视器保护的块中间，除非第一个线程退出了同步块。
 * 但是同步的含义比互斥更广。同步保证了一个线程在同步块之前或者在同步块中的一个内存写入操作以可预知的方式对其他有相同监视器的线程可见。当我们退出了同步块，我们就释放了这个监视器，这个监视器有刷新缓冲区到主内存的效果，因此该线程的写入操作能够为其他线程所见。在我们进入一个同步块之前，我们需要获取监视器，监视器有使本地处理器缓存失效的功能，因此变量会从主存重新加载，于是其它线程对共享变量的修改对当前线程来说就变得可见了。
 * 依据缓存来讨论同步，可能听起来这些观点仅仅会影响到多处理器的系统。但是，重排序效果能够在单一处理器上面很容易见到。对编译器来说，在获取之前或者释放之后移动你的代码是不可能的。当我们谈到在缓冲区上面进行的获取和释放操作，我们使用了简述的方式来描述大量可能的影响。
-* 新的内存模型语义在内存操作（读取字段，写入字段，锁，解锁）以及其他线程的操作（start 和 join）中创建了一个部分排序，在这些操作中，一些操作被称为happen before其他操作。当一个操作在另外一个操作之前发生，第一个操作保证能够排到前面并且对第二个操作可见。这些排序的规则如下
+* 新的内存模型语义在内存操作（读取字段，写入字段，锁，解锁）以及其他线程的操作（start 和 join）中创建了一个部分排序，在这些操作中，一些操作被称为happen before其他操作。当一个操作在另外一个操作之前发生，第一个操作保证能够排到前面并且对第二个操作可见。这些排序的规则如下:
 
 	1. 线程中的每个操作happens before该线程中在程序顺序上后续的每个操作。
 	2. 解锁一个监视器的操作happens before随后对相同监视器进行锁的操作。
 	3. 对volatile字段的写操作happens before后续对相同volatile字段的读取操作。
 	4. 线程上调用start()方法happens before这个线程启动后的任何操作。
-	5. 一个线程中所有的操作都happens before从这个线程join()方法成功返回的任何其他线程。
+	5. 一个线程中所有的操作都happens before从这个线程join()方法成功返回的任何其他线程。<br>
 	（注意思是其他线程等待一个线程的join()方法完成，那么，这个线程中的所有操作happens before其他线程中的所有操作）
 	
 更加通俗具体的[happens-before讲解](http://ifeve.com/easy-happens-before/)
@@ -78,11 +78,10 @@ JSR 133的目标包含了
 注:《深入理解Java虚拟机》中曾指出，happens-before规则诞生之前是使用八大具体的原子操作定义发生的顺序
 	
 这意味着：任何内存操作，这个内存操作在退出一个同步块前对一个线程是可见的，对任何线程在它进入一个被相同的监视器保护的同步块后都是可见的，因为所有内存操作happens before释放监视器以及释放监视器happens before获取监视器。
-其他如下模式的实现被一些人用来强迫实现一个内存屏障的，不会生效：
+其他如下模式的实现被一些人用来强迫实现一个内存屏障的，不会生效:
 
-``` 
-synchronized (new Object()) {}
-```
+	synchronized (new Object()) {}
+	
 这段代码其实不会执行任何操作，你的编译器会把它完全移除掉，因为编译器知道没有其他的线程会使用相同的监视器进行同步。要看到其他线程的结果，你必须为一个线程建立happens before关系。
 * 重点注意：对两个线程来说，为了正确建立happens before关系而在相同监视器上面进行同步是非常重要的。以下观点是错误的：当线程A在对象X上面同步的时候，所有东西对线程A可见，线程B在对象Y上面进行同步的时候，所有东西对线程B也是可见的。释放监视器和获取监视器必须匹配（也就是说要在相同的监视器上面完成这两个操作），否则，代码就会存在“数据竞争”。
 
@@ -92,51 +91,50 @@ synchronized (new Object()) {}
 
 * String对象包含了三个字段：一个character数组，一个数组的offset和一个length。实现String类的基本原理为：它不仅仅拥有character数组，而且为了避免多余的对象分配和拷贝，多个String和StringBuffer对象都会共享相同的character数组。因此，String.substring()方法能够通过改变length和offset，而共享原始的character数组来创建一个新的String。对一个String来说，这些字段都是final型的字段。
 
-```
-String s1 = "/usr/tmp";
-String s2 = s1.substring(4); 
-字符串s2的offset的值为4，length的值为4。但是，在旧的内存模型下，对其他线程来说，看到offset拥有默认的值0是可能的，而且，稍后一点时间会看到正确的值4，好像字符串的值从“/usr”变成了“/tmp”一样。
-```
+	String s1 = "/usr/tmp";
+	String s2 = s1.substring(4); 
+	字符串s2的offset的值为4，length的值为4。但是，在旧的内存模型下，对其他线程来说，看到offset拥有默认的值0是可能的，而且
+	稍后一点时间会看到正确的值4，好像字符串的值从“/usr”变成了“/tmp”一样。
+	
 旧的Java内存模型允许这些行为，部分JVM已经展现出这样的行为了。在新的Java内存模型里面，这些是非法的。
 
 ### 9.在新的Java内存模型中，final字段是如何工作的？
 
 * 一个对象的final字段值是在它的构造方法里面设置的。假设对象被正确的构造了，一旦对象被构造，在构造方法里面设置给final字段的的值在没有同步的情况下对所有其他的线程都会可见。另外，引用这些final字段的对象或数组都将会看到final字段的最新值。
+
 * 对一个对象来说，被正确的构造是什么意思呢？简单来说，它意味着这个正在构造的对象的引用在构造期间没有被允许逸出。（参见安全构造技术）。换句话说，不要让其他线程在其他地方能够看见一个构造期间的对象引用。不要指派给一个静态字段，不要作为一个listener注册给其他对象等等。这些操作应该在构造方法之后完成，而不是构造方法中来完成。
+	
+	```
+	class FinalFieldExample {
+	  final int x;
+	  int y;
+	  static FinalFieldExample f;
+	  public FinalFieldExample() {
+	    x = 3;
+	    y = 4;
+	  }
+	
+	  static void writer() {
+	    f = new FinalFieldExample();
+	  }
+	
+	  static void reader() {
+	    if (f != null) {
+	      int i = f.x;
+	      int j = f.y;
+	    }
+	  }
+	}
+	```
+	
+上面的类展示了final字段应该如何使用。一个正在执行reader方法的线程保证看到f.x的值为3，因为它是final字段。它不保证看到f.y的值为4，因为f.y不是final字段。如果FinalFieldExample的构造方法像这样:
 
-```
-class FinalFieldExample {
-  final int x;
-  int y;
-  static FinalFieldExample f;
-  public FinalFieldExample() {
-    x = 3;
-    y = 4;
-  }
-
-  static void writer() {
-    f = new FinalFieldExample();
-  }
-
-  static void reader() {
-    if (f != null) {
-      int i = f.x;
-      int j = f.y;
-    }
-  }
-}
-```
-
-上面的类展示了final字段应该如何使用。一个正在执行reader方法的线程保证看到f.x的值为3，因为它是final字段。它不保证看到f.y的值为4，因为f.y不是final字段。如果FinalFieldExample的构造方法像这样：
-
-```
-public FinalFieldExample() { // bad!
-  x = 3;
-  y = 4;
-  // bad construction - allowing this to escape
-  global.obj = this;
-}
-```
+	public FinalFieldExample() { // bad!
+	  x = 3;
+	  y = 4;
+	  // bad construction - allowing this to escape
+	  global.obj = this;
+	}
 
 那么，从global.obj中读取this的引用线程不会保证读取到的x的值为3。
 
@@ -149,24 +147,24 @@ public FinalFieldExample() { // bad!
 * Volatile字段是用于线程间通讯的特殊字段。每次读volatile字段都会看到其它线程写入该字段的最新值；实际上，程序员之所以要定义volatile字段是因为在某些情况下由于缓存和重排序所看到的陈旧的变量值是不可接受的。编译器和运行时禁止在寄存器里面分配它们。它们还必须保证，在它们写好之后，它们被从缓冲区刷新到主存中，因此，它们立即能够对其他线程可见。相同地，在读取一个volatile字段之前，缓冲区必须失效，因为值是存在于主存中而不是本地处理器缓冲区。在重排序访问volatile变量的时候还有其他的限制。
 * 在旧的内存模型下，访问volatile变量不能被重排序，但是，它们可能和访问非volatile变量一起被重排序。这破坏了volatile字段从一个线程到另外一个线程作为一个信号条件的手段。
 * 在新的内存模型下，volatile变量仍然不能彼此重排序。和旧模型不同的时候，volatile周围的普通字段的也不再能够随便的重排序了。写入一个volatile字段和释放监视器有相同的内存影响，而且读取volatile字段和获取监视器也有相同的内存影响。事实上，因为新的内存模型在重排序volatile字段访问上面和其他字段（volatile或者非volatile）访问上面有了更严格的约束。当线程A写入一个volatile字段f的时候，如果线程B读取f的话 ，那么对线程A可见的任何东西都变得对线程B可见了。
-如下例子展示了volatile字段应该如何使用：
+如下例子展示了volatile字段应该如何使用:
 
-```
-class VolatileExample {
-  int x = 0;
-  volatile boolean v = false;
-  public void writer() {
-    x = 42;
-    v = true;
-  }
-
-  public void reader() {
-    if (v == true) {
-      //uses x - guaranteed to see 42.
-    }
-  }
-}
-```
+	```
+	class VolatileExample {
+	  int x = 0;
+	  volatile boolean v = false;
+	  public void writer() {
+	    x = 42;
+	    v = true;
+	  }
+	
+	  public void reader() {
+	    if (v == true) {
+	      //uses x - guaranteed to see 42.
+	    }
+	  }
+	}
+	```
 * 假设一个线程叫做“writer”，另外一个线程叫做“reader”。对变量v的写操作会等到变量x写入到内存之后，然后读线程就可以看见v的值。因此，如果reader线程看到了v的值为true，那么，它也保证能够看到在之前发生的写入42这个操作。而这在旧的内存模型中却未必是这样的。如果v不是volatile变量，那么，编译器可以在writer线程中重排序写入操作，那么reader线程中的读取x变量的操作可能会看到0。
 * 实际上，volatile的语义已经被加强了，已经快达到同步的级别了。为了可见性的原因，每次读取和写入一个volatile字段已经像一个半同步操作了
 * 重点注意：对两个线程来说，为了正确的设置happens-before关系，访问相同的volatile变量是很重要的。以下的结论是不正确的：当线程A写volatile字段f的时候，线程A可见的所有东西，在线程B读取volatile的字段g之后，变得对线程B可见了。释放操作和获取操作必须匹配（也就是在同一个volatile字段上面完成）。
@@ -175,37 +173,37 @@ class VolatileExample {
 
 * 臭名昭著的双重锁检查（也叫多线程单例模式）是一个骗人的把戏，它用来支持lazy初始化，同时避免过度使用同步。
 在非常早的JVM中，同步非常慢，开发人员非常希望删掉它。双重锁检查代码如下：
-
-```
-// double-checked-locking - don't do this!
-
-private static Something instance = null;
-
-public Something getInstance() {
-  if (instance == null) {
-    synchronized (this) {
-      if (instance == null)
-        instance = new Something();
-    }
-  }
-  return instance;
-}
-```
+	
+	```
+	// double-checked-locking - don't do this!
+	private static Something instance = null;
+	
+	public Something getInstance() {
+	  if (instance == null) {
+	    synchronized (this) {
+	      if (instance == null)
+	        instance = new Something();
+	    }
+	  }
+	  return instance;
+	}
+	```
 * 这看起来好像非常聪明——在公用代码中避免了同步。这段代码只有一个问题 —— 它不能正常工作。为什么呢？最明显的原因是，初始化实例的写入操作和实例字段的写入操作能够被编译器或者缓冲区重排序，重排序可能会导致返回部分构造的一些东西。就是我们读取到了一个没有初始化的对象。这段代码还有很多其他的错误，以及为什么对这段代码的算法修正是错误的。在旧的java内存模型下没有办法修复它。更多深入的信息可参见：Double-checkedlocking: Clever but broken and The “DoubleChecked Locking is broken” declaration
 * 许多人认为使用volatile关键字能够消除双重锁检查模式的问题。在1.5的JVM之前，volatile并不能保证这段代码能够正常工作（因环境而定）。在新的内存模型下，实例字段使用volatile可以解决双重锁检查的问题，因为在构造线程来初始化一些东西和读取线程返回它的值之间有happens-before关系。
 * 然后，对于喜欢使用双重锁检查的人来说（我们真的希望没有人这样做），仍然不是好消息。双重锁检查的重点是为了避免过度使用同步导致性能问题。从java1.0开始，不仅同步会有昂贵的性能开销，而且在新的内存模型下，使用volatile的性能开销也有所上升，几乎达到了和同步一样的性能开销。因此，使用双重锁检查来实现单例模式仍然不是一个好的选择。（修订—在大多数平台下，volatile性能开销还是比较低的）。
-使用IODH来实现多线程模式下的单例会更易读：
+使用IODH来实现多线程模式下的单例会更易读:
 
-```
-// 还可以使用枚举，静态内部类实现
-private static class LazySomethingHolder {
-  public static Something something = new Something();
-}
-
-public static Something getInstance() {
-  return LazySomethingHolder.something;
-}
-```
+	```
+		// 还可以使用枚举，静态内部类实现
+		private static class LazySomethingHolder {
+		  public static Something something = new Something();
+		}
+		
+		public static Something getInstance() {
+		  return LazySomethingHolder.something;
+		}
+	```
+	
 这段代码是正确的，因为初始化是由static字段来保证的。如果一个字段设置在static初始化中，对其他访问这个类的线程来说是是能正确的保证它的可见性的。
 
 ### 12.为什么我需要关注Java内存模型？

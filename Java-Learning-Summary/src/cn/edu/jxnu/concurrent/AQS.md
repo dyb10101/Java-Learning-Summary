@@ -45,6 +45,11 @@ PV操作的意义：我们用信号量及PV操作来实现进程的同步和互�
 进程的互斥是指当有若干个进程都要使用某一共享资源时，任何时刻最多只允许一个进程去使用该资源，其他要使用它的进程必须等待，直到该资源的占用着释放了该资源。
 进程的同步是指在并发进程之间存在这一种制约关系，一个进程依赖另一个进程的消息，当一个进程没有得到另一个进程的消息时应等待，直到消息到达才被唤醒
 
+ReentrantLock的定义：
+
+```
+public class ReentrantLock implements Lock, java.io.Serializable { }
+```
 
 ReentrantLock的lock方法：
 
@@ -99,7 +104,6 @@ ReentrantLock的lock方法：
 看下FairSync的tryAcquire方法：
 
 ```
- 		@ReservedStackAccess
         protected final boolean tryAcquire(int acquires) {
             final Thread current = Thread.currentThread();
             int c = getState();
@@ -447,7 +451,11 @@ CountDownLatch的构造方法：
         this.sync = new Sync(count);
     }
 ```
+CountDownLatch的定义：
 
+```
+public class CountDownLatch { }
+```
 和ReentrantLock类似，CountDownLatch内部也有一个叫做Sync的内部类，同样也是用它继承了AQS。
 
 再看下Sync类：

@@ -194,17 +194,17 @@ JSR 133的目标包含了
 使用IODH来实现多线程模式下的单例会更易读:
 
 	```
-		// 还可以使用枚举，静态内部类实现
-		private static class LazySomethingHolder {
-		  public static Something something = new Something();
-		}
-		
-		public static Something getInstance() {
-		  return LazySomethingHolder.something;
-		}
+	// 还可以使用枚举，静态内部类实现
+	private static class LazySomethingHolder {
+	  public static Something something = new Something();
+	}
+	
+	public static Something getInstance() {
+	  return LazySomethingHolder.something;
+	}
 	```
 	
-这段代码是正确的，因为初始化是由static字段来保证的。如果一个字段设置在static初始化中，对其他访问这个类的线程来说是是能正确的保证它的可见性的。
+这段代码是正确的，因为初始化是由static字段来保证的。如果一个字段设置在static初始化中，对其他访问这个类的线程来说是能正确的保证它的可见性的。
 
 ### 12.为什么我需要关注Java内存模型？
 

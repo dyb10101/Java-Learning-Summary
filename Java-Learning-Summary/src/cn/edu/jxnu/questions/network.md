@@ -537,7 +537,7 @@ SO_LINGER涉及到linger结构体，如果设置结构体中l_onoff为非0，l_l
 
 6、网页静态资源加载
 
-### 10.HHTP和HTTPS区别，HTTPS在请求时额外的过程，HTTPS是如何保证数据安全的 
+### 10.HTTP和HTTPS区别，HTTPS在请求时额外的过程，HTTPS是如何保证数据安全的 
 
 SSL位于应用层于传输层TCP之间，原本数据由应用层直接交由传输层处理，现在会经过SSL加密再进行传输<br>
 HTTPS要比HTTP更加安全一些，也就是说HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份验证的网络协议要比HTTP协议安全，现在大多数的网站都逐渐用HTTPS<br>

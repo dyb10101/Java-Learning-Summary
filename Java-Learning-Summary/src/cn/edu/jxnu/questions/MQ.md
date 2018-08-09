@@ -30,7 +30,7 @@ AMQP规范的版本：<br>
 ### 3.AMQP 与 JMS对比 ？
 
 通常而言提到JMS（Java MessageService）实际上是指JMS API。JMS是由Sun公司早期提出的消息标准，旨在为java应用提供统一的消息操作，包括create、send、receive
-等。JMS已经成为Java Enterprise Edition的一部分。从使用角度看，JMS和JDBC担任差不多的角色，用户都是根据相应的接口可以和实现了JMS的服务进行通信，进行相关的操作。
+等。JMS已经成为Java Enterprise Edition的一部分。从使用角度看，JMS和JDBC担任差不多的角色，用户都是根据相应的接口就可以和实现了JMS的服务进行通信，进行相关的操作。
 
 JMS定义了Java层面的标准，在Java体系中，多client均可以通过JMS进行交互，不需要应用修改代码，但是对跨平台的支持较差，提供两种消息模型:
 

@@ -170,3 +170,5 @@ git rebase --continue  git 便会自动继续合并
 	执行git add 将修改完后的冲突文件添加进索引【stage 暂存区，位于工作区和当前分支之间】
 	执行git rebase --continue 继续合并
  
+
+欢迎指出提出建议和意见

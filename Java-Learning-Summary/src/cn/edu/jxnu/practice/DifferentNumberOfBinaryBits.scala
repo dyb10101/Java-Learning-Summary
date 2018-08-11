@@ -3,6 +3,7 @@ package cn.edu.jxnu.practice
 import scala.io.StdIn
 
 /**
+ * 两个整数的二进制有多少不同位
  * @author 梦境迷离.
  * @time 2018年8月2日
  * @version v1.0

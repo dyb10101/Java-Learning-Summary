@@ -1,4 +1,4 @@
-package cn.edu.jxnu.leetcode;
+package cn.edu.jxnu.leetcode.dp;
 
 /**
  * 如果在子序列中，当下标 ix > iy 时，Six > Siy，称子序列为原序列的一个 递增子序列 。

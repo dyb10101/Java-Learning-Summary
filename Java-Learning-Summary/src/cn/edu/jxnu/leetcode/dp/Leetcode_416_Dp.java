@@ -1,4 +1,4 @@
-package cn.edu.jxnu.leetcode;
+package cn.edu.jxnu.leetcode.dp;
 
 /**
  * 划分数组为和相等的两部分

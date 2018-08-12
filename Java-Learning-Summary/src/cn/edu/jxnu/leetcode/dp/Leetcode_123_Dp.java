@@ -1,4 +1,4 @@
-package cn.edu.jxnu.leetcode;
+package cn.edu.jxnu.leetcode.dp;
 
 /**
  * 只能进行两次的股票交易

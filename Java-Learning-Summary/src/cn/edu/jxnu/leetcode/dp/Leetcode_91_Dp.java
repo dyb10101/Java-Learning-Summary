@@ -1,4 +1,4 @@
-package cn.edu.jxnu.leetcode;
+package cn.edu.jxnu.leetcode.dp;
 
 /**
  * 分割整数构成字母字符串

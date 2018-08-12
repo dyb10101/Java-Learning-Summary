@@ -1,4 +1,4 @@
-package cn.edu.jxnu.leetcode;
+package cn.edu.jxnu.leetcode.dp;
 
 /**
  * 复制粘贴字符

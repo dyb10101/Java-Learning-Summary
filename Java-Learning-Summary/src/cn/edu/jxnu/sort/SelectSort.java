@@ -39,7 +39,7 @@ public class SelectSort extends Constant {
 		if (a == null || length <= 0) {
 			return;
 		}
-		int minary; // 定义一个最下坐标
+		int minary; // 定义一个最小坐标
 		int temp = 0; // 定义一个临时变量
 		for (int i = 0; i < length - 1; i++) {
 			minary = i; // 将最小下标附一个初始值

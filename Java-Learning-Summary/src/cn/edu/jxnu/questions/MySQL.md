@@ -545,17 +545,3 @@ JOIN的优化原则<br>
 5. 分区
 6. 垂直拆分，解耦模块
 7. 水平切分 分片
-
-### 18、引申 Redis | Memcached
-
-[memcached全面剖析](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/questions/memcached%E5%85%A8%E9%9D%A2%E5%89%96%E6%9E%90.pdf)
-
-Redis
-
-1.	redis数据结构有哪些 
-2.	redis队列应用场景 
-3.	redis和Memcached（支持数据持久化） 
-4.	分布式使用场景（储存session等） 
-5.	发布/订阅使用场景 
-
-以上就看《redis in action》 吧

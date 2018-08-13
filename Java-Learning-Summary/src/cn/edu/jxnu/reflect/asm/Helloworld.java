@@ -11,32 +11,24 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 
 /**
- * 演示动态生成类，该类的main方法打印Hello World
+ * 演示两种方式动态生成类，该类的main方法打印Hello World
  * 
  * 根据生成的字节码构造对象，启动main
  * 
  * ASM的Opcodes类已经定义了各个修饰符的常量
  * 
- * @author Eric Bruneton
  */
 public class Helloworld extends ClassLoader implements Opcodes {
 
 	@SuppressWarnings("deprecation")
 	public static void main(final String args[]) throws Exception {
 
-		// Generates the bytecode corresponding to the following Java class:
-		//
-		// public class Example {
-		// public static void main (String[] args) {
-		// System.out.println("Hello world!");
-		// }
-		// }
-
+		long start1 = System.nanoTime();
 		// 创建一个Example类的 ClassWriter
 		// which inherits from Object
 		ClassWriter cw = new ClassWriter(0);
 		cw.visit(V1_1, ACC_PUBLIC, "Example", null, "java/lang/Object", null);
-		// 创建默认构造方法的MethodWriter
+		// 创建默认构造方法的MethodVisitor，调用ClassWriter的visitMethod得到MethodVisitor，操纵方法相关的字节码
 		MethodVisitor mw = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
 		// 将this压入栈
 		mw.visitVarInsn(ALOAD, 0);
@@ -48,7 +40,6 @@ public class Helloworld extends ClassLoader implements Opcodes {
 		mw.visitMaxs(1, 1);
 		// 类构造方法结束
 		mw.visitEnd();
-
 		// 为‘main’方法创建一个方法编写器
 		mw = cw.visitMethod(ACC_PUBLIC + ACC_STATIC, "main", "([Ljava/lang/String;)V", null, null);
 		// System的out入栈
@@ -63,29 +54,25 @@ public class Helloworld extends ClassLoader implements Opcodes {
 		mw.visitMaxs(2, 2);
 		// 方法结束
 		mw.visitEnd();
-
 		// 获取示例类的字节码，并动态加载它。
 		byte[] code = cw.toByteArray();
-
 		// 保存到文件
 		FileOutputStream fos = new FileOutputStream(
-				"D:\\git_project\\Java-Learning-Summary\\Java-Learning-Summary\\src\\cn\\edu\\jxnu\\reflect\\asm\\Example.class");
+				"D:\\Scala\\scala_project\\Java-Learning-Summary\\Java-Learning-Summary\\Java-Learning-Summary\\src\\cn\\edu\\jxnu\\reflect\\asm\\Example.class");
 		fos.write(code);
 		fos.close();
-
 		Helloworld loader = new Helloworld();
 		Class<?> exampleClass = loader.defineClass("Example", code, 0, code.length);
-
 		// 使用动态生成的类打印“HelloWorld”
 		exampleClass.getMethods()[0].invoke(null, new Object[] { null });
-
+		long end1 = System.nanoTime();
+		
 		// ------------------------------------------------------------------------
 		// 与GeneratorAdapter相同的示例(更方便，但更慢)
 		// ------------------------------------------------------------------------
-
+		long start2 = System.nanoTime();
 		cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
 		cw.visit(V1_1, ACC_PUBLIC, "Example", null, "java/lang/Object", null);
-
 		// 创建默认构造器的GeneratorAdapter
 		Method m = Method.getMethod("void <init> ()");
 		GeneratorAdapter mg = new GeneratorAdapter(ACC_PUBLIC, m, null, null, cw);
@@ -93,7 +80,6 @@ public class Helloworld extends ClassLoader implements Opcodes {
 		mg.invokeConstructor(Type.getType(Object.class), m);
 		mg.returnValue();
 		mg.endMethod();
-
 		m = Method.getMethod("void main (String[])");
 		mg = new GeneratorAdapter(ACC_PUBLIC + ACC_STATIC, m, null, null, cw);
 		mg.getStatic(Type.getType(System.class), "out", Type.getType(PrintStream.class));
@@ -101,13 +87,16 @@ public class Helloworld extends ClassLoader implements Opcodes {
 		mg.invokeVirtual(Type.getType(PrintStream.class), Method.getMethod("void println (String)"));
 		mg.returnValue();
 		mg.endMethod();
-
 		cw.visitEnd();
-
 		code = cw.toByteArray();
 		loader = new Helloworld();
 		exampleClass = loader.defineClass("Example", code, 0, code.length);
-
 		exampleClass.getMethods()[0].invoke(null, new Object[] { null });
+		long end2 = System.nanoTime();
+		
+		System.out.println("MethodVisitor:"+(end1-start1));
+		System.out.println("GeneratorAdapter:"+ (end2-start2));
+		System.out.println("MethodVisitor比GeneratorAdapter多花:"+(double)((end1-start1)-(end2-start2))+"ns");//约3000000~4000000ns
+
 	}
 }

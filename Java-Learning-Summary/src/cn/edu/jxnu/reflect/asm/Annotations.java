@@ -19,7 +19,7 @@ public class Annotations {
 	public static void main(final String[] args) throws Exception {
 		System.out.println("Calling foo(null) results in a NullPointerException:");
 		try {
-			foo(null);
+			foo("helloworld");
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 		}

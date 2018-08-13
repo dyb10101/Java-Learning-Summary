@@ -45,14 +45,14 @@ Redis 是一个基于内存的高性能key-value数据库。
 
 [具体细节参见memcached全面剖析](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/questions/memcached%E5%85%A8%E9%9D%A2%E5%89%96%E6%9E%90.pdf)
 	
-### 6.redis常见性能问题和解决方案： 　　
+### 6.redis常见性能问题和解决方案　　
 
 1. Master写内存快照，save命令调度rdbSave函数，会阻塞主线程的工作，当快照比较大时对性能影响是非常大的，会间断性暂停服务，所以Master最好不要写内存快照。
 2. Master AOF持久化，如果不重写AOF文件，这个持久化方式对性能的影响是最小的，但是AOF文件会不断增大，AOF文件过大会影响Master重启的恢复速度。Master最好不要做任何持久化工作，包括内存快照和AOF日志文件，特别是不要启用内存快照做持久化，如果数据比较关键，某个Slave开启AOF备份数据，策略为每秒同步一次。
 3. Master调用BGREWRITEAOF重写AOF文件，AOF在重写的时候会占大量的CPU和内存资源，导致服务load过高，出现短暂服务暂停现象。
 4. Redis主从复制的性能问题，为了主从复制的速度和连接的稳定性，Slave和Master最好在同一个局域网内
 
-### 7.mySQL里有2000w数据，redis中只存20w的数据，如何保证redis中的数据都是热点数据？
+### 7.MySQL里有2000w数据，redis中只存20w的数据，如何保证redis中的数据都是热点数据？
 
 相关知识：redis 内存数据集大小上升到一定大小的时候，就会施行数据淘汰策略（回收策略）。
 redis 提供 6种数据淘汰策略：
@@ -92,7 +92,7 @@ redis 提供 6种数据淘汰策略：
 * 当使用Append-Only模式时，Redis会通过调用系统函数write将该事务内的所有写操作在本次调用中全部写入磁盘。然而如果在写入的过程中出现系统崩溃，如电源故障导致的宕机，那么此时也许只有部分数据被写入到磁盘，而另外一部分数据却已经丢失。
 * Redis服务器会在重新启动时执行一系列必要的一致性检测，一旦发现类似问题，就会立即退出并给出相应的错误提示。此时，我们就要充分利用Redis工具包中提供的redis-check-aof工具，该工具可以帮助我们定位到数据不一致的错误，并将已经写入的部分数据进行回滚。修复之后我们就可以再次重新启动Redis服务器了。
 
-### 12.WATCH命令和基于CAS的乐观锁：　
+### 12.WATCH命令和基于CAS的乐观锁　
 
 　　　在Redis的事务中，WATCH命令可用于提供CAS(check-and-set)功能。假设我们通过WATCH命令在事务执行之前监控了多个Keys，倘若在WATCH之后有任何Key的值发生了变化，EXEC命令执行的事务都将被放弃，同时返回Null multi-bulk应答以通知调用者事务执行失败。
 

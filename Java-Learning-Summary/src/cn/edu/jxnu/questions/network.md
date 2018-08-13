@@ -354,11 +354,11 @@ Vary: Content-Encoding那么 Cache 服务器会分析后续请求消息的头部
 1、OSI七层模型
 
 * OSI中的层 功能 TCP/IP协议族
-* 应用层 文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet
+* 应用层 文件传输，电子邮件，文件服务，虚拟终端 TFTP（69），HTTP（80），SNMP（161、trap162），FTP（传输20、控制21），SMTP（25），DNS（53），Telnet（23）
 * 表示层 数据格式化，代码转换，数据加密 没有协议
 * 会话层 解除或建立与别的接点的联系 没有协议
 * 传输层 提供端对端的接口 TCP，UDP
-* 网络层 为数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP
+* 网络层 为数据包选择路由 IP，ICMP（IP），RIP（广播、UDP），OSPF（组播、IP），BGP（TCP），IGMP（IP）
 * 数据链路层 传输有地址的帧以及错误检测功能 SLIP，CSLIP，PPP，ARP，RARP，MTU
 * 物理层 以二进制数据形式在物理媒体上传输数据 ISO2110，IEEE802，IEEE802.2
 
@@ -369,6 +369,7 @@ Vary: Content-Encoding那么 Cache 服务器会分析后续请求消息的头部
 * 网络层 路由器、三层交换机
 * 数据链路层 网桥（现已很少使用）、以太网交换机（二层交换机）、网卡（其实网卡是一半工作在物理层、一半工作在数据链路层）
 * 物理层 中继器、集线器、还有我们通常说的双绞线也工作在物理层
+* 对于只有四层的教科书，物理+链路=网络接口层
 
 ### 7.session机制、cookie机制 
 
@@ -530,9 +531,9 @@ SO_LINGER涉及到linger结构体，如果设置结构体中l_onoff为非0，l_l
 　　而Filter的功能可以理解成先把前一步生成的结果处理一遍，再返回给浏览器。比如可以将前面没有压缩的网页用gzip压缩后再返回给浏览器。
 
 5、浏览器渲染<br>
-   　1) 浏览器根据页面内容，生成DOM Tree。根据CSS内容，生成CSS Rule Tree(规则树)。调用JS执行引擎执行JS代码。<br>
-　　2) 根据DOM Tree和CSS Rule Tree生成Render Tree(呈现树)<br>
-　　3) 根据Render Tree渲染网页<br>
+	1) 浏览器根据页面内容，生成DOM Tree。根据CSS内容，生成CSS Rule Tree(规则树)。调用JS执行引擎执行JS代码。<br>
+	2) 根据DOM Tree和CSS Rule Tree生成Render Tree(呈现树)<br>
+	3) 根据Render Tree渲染网页<br>
 　　　　但是在浏览器解析页面内容的时候，会发现页面引用了其他未加载的image、css文件、js文件等静态内容，因此开始了第二部分。<br>
 
 6、网页静态资源加载
@@ -548,6 +549,46 @@ HTTPS协议需要到CA申请证书，一般需要额外支出，此外还有一�
 [RFC2818 - HTTP Over TLS](http://www.cnpaf.net/rfc/rfc2818.txt)<br>
 [RFC2817 - Upgrading to TLS Within HTTP/1.1 注意区别，此时还不是HTTPS](http://www.cnpaf.net/rfc/rfc2817.txt)<br>
 
+Sunyandong-CS补充：
+
+1、HTTPS的具体过程
+
+* 在使用HTTPS是需要保证服务端配置正确了对应的安全证书
+* 客户端发送请求到服务端
+* 服务端返回公钥和证书到客户端
+* 客户端接收后会验证证书的安全性,如果通过则会随机生成一个随机数,用公钥对其加密,发送到服务端
+* 服务端接受到这个加密后的随机数后会用私钥对其解密得到真正的随机数,随后用这个随机数当做私钥对需要发送的数据进行对称加密
+* 客户端在接收到加密后的数据使用私钥(即生成的随机值)对数据进行解密并且解析数据呈现结果给客户
+* SSL加密建立
+
+2、中间人攻击 
+
+HTTPS也不是绝对安全的,针对SSL的中间人攻击方式主要有两类，分别是SSL劫持攻击和SSL剥离攻击
+
+SSL劫持攻击
+
+* SSL劫持攻击即SSL证书欺骗攻击，攻击者为了获得HTTPS传输的明文数据，需要先将自己接入到客户端和目标网站之间；
+在传输过程中伪造服务器的证书，将服务器的公钥替换成自己的公钥，这样，中间人就可以得到明文传输带Key1、Key2和Pre-Master-Key，从而窃取客户端和服务端的通信数据；
+但是对于客户端来说，如果中间人伪造了证书，在校验证书过程中会提示证书错误，由用户选择继续操作还是返回，
+由于大多数用户的安全意识不强，会选择继续操作，此时，中间人就可以获取浏览器和服务器之间的通信数据，如果客户端不信任，则这种攻击手段也无法发挥作用。
+
+SSL剥离攻击
+
+* 这种攻击方式也需要将攻击者设置为中间人，之后见HTTPS范文替换为HTTP返回给浏览器，而中间人和服务器之间仍然保持HTTPS服务器。
+由于HTTP是明文传输的，所以中间人可以获取客户端和服务器传输数据
+
+3、中间人攻击的预防
+
+* 确保在URL前你所访问的网站有HTTPS
+* 点击电子邮件前，检查电子邮件的发件人
+* 如果你是一个网站管理员，你应当执行HSTS协议
+* 不要在公共Wi-Fi网络上购买或发送敏感数据
+* 确保你的网站没有任何混合内容
+* 如果你的网站使用了SSL，确保你禁用了不安全的SSL/TLS协议。你应当只启用了TLS 1.1和TLS 1.2
+* 不要点击恶意链接或电子邮件
+* 不要下载盗版内容
+* 将安全工具正确地安装在系统上
+
 ### 11.IP地址子网划分 
 
 参考RFC:<br>
@@ -557,18 +598,50 @@ http://www.cnpaf.net/Class/RFC/200408/894.html  <br>
 
 ### 12.Post和Get请求的异同
 
-* Get可提交的数据量较小(1024字节、2048字节...)、而Post提交的数据量较大（80kb、100kb...）,浏览器和服务器会有不同的限制。
-* 在ASP中，服务端获取GET请求参数用Request.QueryString，获取POST请求参数用Request.Form。
-* 在JSP中，用request.getParameter(\"XXXX\")来获取，虽然jsp中也有request.getQueryString()方法，但使用起来比较麻烦，比如：传一个test.jsp?name=hyddd&password=hyddd，用request.getQueryString()得到的是：name=hyddd&password=hyddd。
-* GET请求的数据会附在URL之后（就是把数据放置在HTTP协议头中），以?分割URL和传输数据，参数之间以&相连。
-* POST把提交的数据则放置在是HTTP包的包体中。
-* 说Get是安全的指的仅仅是非修改信息，Get用于获取/查询资源信息，Post用于更新资源信息。
-* Post安全性比Get高，Get发出的URL请求将用户名密码明文显示出来；<br>
-	（1）会被浏览器缓存<br>
-	（2）翻看浏览器的历史记录<br>
-	（3）会造成Cross-site request forgery攻击<br>
-* GET是幂等的，POST不是
+POST和GET在编程中的区别
 
+* （1）Get可提交的数据量较小(1024字节、2048字节...)、而Post提交的数据量较大（80kb、100kb...）,浏览器和服务器会有不同的限制。
+* （2）在ASP中，服务端获取GET请求参数用Request.QueryString，获取POST请求参数用Request.Form。
+* （3）在JSP中，用request.getParameter(\"XXXX\")来获取，虽然jsp中也有request.getQueryString()方法，但使用起来比较麻烦，比如：传一个test.jsp?name=hyddd&password=hyddd，用request.getQueryString()得到的是：name=hyddd&password=hyddd。
+* （4）GET请求的数据会附在URL之后（就是把数据放置在HTTP协议头中），以?分割URL和传输数据，参数之间以&相连。
+* （5）POST把提交的数据则放置在是HTTP包的包体中。
+* （6）说Get是安全的指的仅仅是非修改信息，Get用于获取/查询资源信息，Post用于更新资源信息。
+* （7）Post安全性比Get高，Get发出的URL请求将用户名密码明文显示出来；
+* （8）GET是幂等的，POST不是
+
+		会被浏览器缓存
+		翻看浏览器的历史记录
+		会造成Cross-site request forgery攻击
+
+Sunyandong-CS的补充：
+
+1、什么是幂等性？
+
+HTTP方法的幂等性是指一次和多次请求某一个资源应该具有同样的副作用。即：同一个请求，发送一次和发送N次效果是一样的！<br>
+幂等的方法：GET、DELETE、PUT <br>
+PUT与POST均是创建或更新，唯一不同是POST非幂等<br>
+
+[RFC2616](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html)
+
+2、MAC 地址和 IP地址的区别，为什么网络连接使用IP地址而不是用MAC地址？
+	
+（1）IP地址（32bit）是指Internet协议使用的地址，而MAC地址（48bit）是Ethernet协议使用的地址。<br>
+（2）IP地址是可以自动分配的，MAC地址在每个网卡出场的时候就有一个全球唯一的MAC地址，所以很多的验证软件就是验证mac地址的。（忽略MAC伪造）<br>
+（3）IP是可以更改的，mac地址虽然也可以更改，但是一般用不上，除非要用来绕过一些验证软件的。网卡在通讯的时候通过mac地址相互识别。（忽略MAC伪造）<br>
+（4）IP地址的分配是基于网络拓朴，MAC地址的分配是基于制造商。<br>
+（5）IP地址应用于OSI第三层，即网络层，而MAC地址应用在OSI第二层，即数据链路层。
+
+要想知道为什么网络连接使用IP，首先需要知道IP在此的作用是什么？
+
+（1）网络划分，区分不同网络<br>
+（2）屏蔽不同厂商的标识，使得网络连接的细节对应用层来说是透明的。（应用层或上层不需要知道连接来自哪个厂商）<br>
+（3）基于网络分层思想，更利于管理，寻错等。（使用统一的IP地址寻址、路由，但是对于不同的局域网IP，没必要让它们唯一，而如果没有IP，则与MAC通信地址必须写死，因为MAC不可变）<br>
+
+MAC地址一共有48bit，分为两部分，前24bit是厂商代码，后24bit是厂家自己分配的。
+假如我们认为MAC地址可以区分不同的网络的话，那只能是使用厂商代码来区分不同的网络，也就是说使用同一个厂商生产的网卡的主机或者网络设备，
+就是属于同一个网络。举个例子，比如说企业A使用了思科的网络设备，企业B也使用了思科的网络设备，那这两家企业就属于同一个网络了。
+现实中这种情况是不可能的。
+	
 ### 13.DNS解析过程
 
 访问www.baidu.com

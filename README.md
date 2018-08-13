@@ -25,7 +25,7 @@
    
    12.[Git简单总结](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/questions/Git.md)
 
-   13.[Redis：全部来自网络，有问题别找我QAQ](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/questions/redis.md)
+   13.[Redis：几乎都来自网络，有问题别找我QAQ](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/questions/redis.md)
    
    
    其他知识的代码。不使用md文件是希望可以直接运行，说明在包中

@@ -31,7 +31,6 @@ Redis 是一个基于内存的高性能key-value数据库。
 * 数据支持类型： Memcache对数据类型支持相对简单。 Redis有复杂的数据类型。 
 * 使用底层模型不同：它们之间底层实现方式以及与客户端之间通信的应用协议不一样。 Redis直接自己构建了VM 机制 ，因为一般的系统调用系统函数的话，会浪费一定的时间去移动和请求。
 * value大小不同：redis最大可以达到1GB，而memcache只有1MB。PS:实际上可以修改，但是无论怎样在使用时都会造成内存碎片，可以估算数据的大小并且通过Growth Factor进行调优来减少内存浪费。
-* 数据的备份：redis支持master-slave模式的数据备份，而memcache不需要memcached服务端之间进行通信，分布式方案使用客户端一致性hash算法
 
 ![memcache Slab Allocation](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/questions/Slab.png)
 
@@ -40,6 +39,10 @@ Redis 是一个基于内存的高性能key-value数据库。
 	Chunk：用于缓存记录的内存空间。
 	Slab Class：特定大小的 chunk 的组。
 	
+* 数据的备份：redis支持master-slave模式的数据备份，而memcache不需要memcached服务端之间进行通信，分布式方案使用客户端一致性hash算法
+
+![memcache Slab Allocation](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/questions/hash.png)
+
 [具体细节参见memcached全面剖析](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/questions/memcached%E5%85%A8%E9%9D%A2%E5%89%96%E6%9E%90.pdf)
 	
 ### 6.redis常见性能问题和解决方案： 　　

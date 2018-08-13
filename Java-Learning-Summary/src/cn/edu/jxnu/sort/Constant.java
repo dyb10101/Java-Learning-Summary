@@ -6,12 +6,16 @@ import java.util.stream.Collectors;
 /**
  * 定义排序用的常量,公共方法
  * 
+ * 这里最好使用泛型类，更通用
+ * 
  * 
  * @time 2018年3月24日14:39:51
  */
 public abstract class Constant {
 
 	public static final Object[] array = { 8, 34, 64, 51, 33, 22, 44, 55, 88, 1, 0, 2, 2 };
+	// 有序数组
+	public static final Object[] array2 = { 0, 1, 2, 2, 8, 22, 33, 34, 44, 51, 55, 64, 88 };
 	public static final int len = array.length;
 
 	public static void printResult(Object[] array) throws Exception {
@@ -22,9 +26,22 @@ public abstract class Constant {
 	}
 
 	/**
-	 * @author 梦境迷离
-	 * @description 子类需要强转。缺点
-	 * @time 2018年4月8日
+	 * 原始版
+	 * 
+	 * @param array
+	 * @param len
+	 * @return
 	 */
 	public abstract Object[] sort(Object[] array, int len);
+
+	/**
+	 * 优化版
+	 * 
+	 * @param array
+	 * @param len
+	 * @return
+	 */
+	public Object[] sort2(Object[] array, int len) {
+		return new Object[0];
+	}
 }

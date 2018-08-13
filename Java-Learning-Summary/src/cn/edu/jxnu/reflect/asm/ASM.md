@@ -166,11 +166,24 @@ public class Helloworld extends ClassLoader implements Opcodes {
 		
 		System.out.println("MethodVisitor:"+(end1-start1));
 		System.out.println("GeneratorAdapter:"+ (end2-start2));
-		System.out.println("MethodVisitor比GeneratorAdapter多花:"+(double)((end1-start1)-(end2-start2))+"ns");//约3000000~4000000ns
+		//约3000000~4000000ns
+		System.out.println("MethodVisitor比GeneratorAdapter多花:"+(double)((end1-start1)-(end2-start2))+"ns");
 
 	}
 }
 
 ```
+
+### 5.ASM与反射、CGLib、JDK代理、Spring
+
+* 反射是读取持久堆上存储的类信息。而 ASM 是直接处理 .class 字节码的小工具（工具虽小，但是功能非常强大！）
+* 反射只能读取类信息，而 ASM 除了读还能写。
+* 反射读取类信息时需要进行类加载处理，而 ASM 则不需要将类加载到内存中。
+* 反射相对于 ASM 来说使用方便，想直接操纵 ASM 的话需要有 JVM 指令基础。（想熟练掌握极难，况且普通开发者也用不着。。。）
+* CGLib是一个开源项目，底层依赖ASM API操纵字节码 [CGLib](https://github.com/cglib/cglib)
+* Spring的AOP动态代理分为JDK和CGLib
+
+
+
 
 [参考infoq](http://www.infoq.com/cn/articles/Living-Matrix-Bytecode-Manipulation)

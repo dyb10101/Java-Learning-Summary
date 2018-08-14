@@ -14,7 +14,7 @@
 
 4.　应尽量避免在 where 子句中使用or 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描，如：select id from t where num=10 or num=20可以这样查询：select id from t where num=10 union all select id from t where num=20
 
-5.　in 和 not in 也要慎用，否则会导致全表扫描，如：select id from t where num in(1,2,3) 对于连续的数值，能用 between 就不要用 in 了：select id from t where num between 1 and 3
+5.　in 和 not in 也要慎用，否则会导致全表扫描，如：select id from t where num in(1，2，3) 对于连续的数值，能用 between 就不要用 in 了：select id from t where num between 1 and 3
 
 6.　下面的查询也将导致全表扫描：select id from t where name like ‘%李%'若要提高效率，可以考虑全文检索。
 
@@ -22,13 +22,13 @@
 
 8.　应尽量避免在 where 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描。如：select id from t where num/2=100应改为:select id from t where num=100*2
 
-9.　应尽量避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。如：select id from t where substring(name,1,3)='abc' ，name以abc开头的id应改为:select id from t where name like ‘abc%'
+9.　应尽量避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。如：select id from t where substring(name，1，3)='abc' ，name以abc开头的id应改为:select id from t where name like ‘abc%'
 
 10.　不要在 where 子句中的“=”左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。
 
 11.　在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。
 
-12.　不要写一些没有意义的查询，如需要生成一个空表结构：select col1,col2 into #t from t where 1=0　这类代码不会返回任何结果集，但是会消耗系统资源的，应改成这样：create table #t(…)
+12.　不要写一些没有意义的查询，如需要生成一个空表结构：select col1，col2 into #t from t where 1=0　这类代码不会返回任何结果集，但是会消耗系统资源的，应改成这样：create table #t(…)
 
 13.　很多时候用 exists 代替 in 是一个好的选择：select num from a where num in(select num from b)　用下面的语句替换：
 
@@ -72,8 +72,8 @@ select num from a where exists(select 1 from b where num=a.num)
 ### 1、事务四大特性（ACID）
 
 * 原子性(Atomicity):原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 
-* 一致性(Consistency):如果事务执行之前数据库是一个完整性的状态,那么事务结束后,无论事务是否执行成功,数据库仍然是一个完整性状态。
-            (数据库的完整性状态:当一个数据库中的所有的数据都符合数据库中所定义的所有的约束,此时可以称数据库是一个完整性状态。)
+* 一致性(Consistency):如果事务执行之前数据库是一个完整性的状态，那么事务结束后，无论事务是否执行成功，数据库仍然是一个完整性状态。
+            (数据库的完整性状态:当一个数据库中的所有的数据都符合数据库中所定义的所有的约束，此时可以称数据库是一个完整性状态。)
 * 隔离性(Isolation):事务的隔离性是指多个用户并发访问数据库时，一个用户的事务不能被其它用户的事务所干扰，多个并发事务之间数据要相互隔离。
 * 持久性(durability):持久性是指一个事务一旦被提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响。
 
@@ -85,7 +85,7 @@ select num from a where exists(select 1 from b where num=a.num)
 
 * 成本：nosql数据库简单易部署，基本都是开源软件，不需要像使用oracle那样花费大量成本购买使用，相比关系型数据库价格便宜。当然还有免费的
 * 查询速度：nosql数据库将数据存储于缓存之中，关系型数据库将数据存储在硬盘中，自然查询速度远不及nosql数据库。
-* 存储数据的格式：nosql的存储格式是key,value形式、文档形式、图片形式等等，所以可以存储基础类型以及对象或者是集合等各种格式，而数据库则只支持基础类型。
+* 存储数据的格式：nosql的存储格式是key，value形式、文档形式、图片形式等等，所以可以存储基础类型以及对象或者是集合等各种格式，而数据库则只支持基础类型。
 * 扩展性：关系型数据库有类似join这样的多表查询机制的限制导致扩展很艰难。
 
 缺点
@@ -141,7 +141,7 @@ SQL标准定义了4类隔离级别，包括了一些具体规则，用来限定�
 * 写不影响读：事务以排他锁的形式修改原始数据，当读取的行正在执行 delete 或者 update 操作，这时读取操作不会因此去等待行上锁的释放。相反地，InnoDB 存储引擎会去读取行的一个快照数据。
 
 * 间隙锁：间隙锁主要用来防止幻读，用在repeatable-read隔离级别下，指的是当对数据进行条件，范围检索时，对其范围内也许并存在的值进行加锁！
-当查询的索引含有唯一属性（唯一索引，主键索引）时，Innodb存储引擎会对next-key lock进行优化，将其降为record lock,即仅锁住索引本身，而不是范围！若是普通辅助索引，则会使用传统的next-key lock进行范围锁定！
+当查询的索引含有唯一属性（唯一索引，主键索引）时，Innodb存储引擎会对next-key lock进行优化，将其降为record lock，即仅锁住索引本身，而不是范围！若是普通辅助索引，则会使用传统的next-key lock进行范围锁定！
  
 ### 3、MySQL的锁算法
 
@@ -295,7 +295,7 @@ InnoDB主要特性
 
 倒排索引基本概念示意图
 
-![](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/questions/%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95.jpg)
+![](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/practice/picture/%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95.jpg)
 
 4.倒排索引和正排索引
 
@@ -329,7 +329,7 @@ InnoDB主要特性
 
 1.冗余数据的处理
 
-* 适当的数据冗余可以提高系统的整体查询性能(在P2P中,在userinfo对象中有realname和idnumber);
+* 适当的数据冗余可以提高系统的整体查询性能(在P2P中，在userinfo对象中有realname和idnumber);
 * 关系数据库的三范式:
 * 第一范式（1NF）是对关系模式的基本要求，不满足第一范式（1NF）的数据库就不是关系数据库，是指数据库表的每一列都是不可分割的基本数据项，同一列中不能有多个值；
 * 第二范式（2NF）要求数据库表中的每个实例或行必须可以被惟一地区分。  即各字段和主键之间不存在部分依赖
@@ -337,34 +337,34 @@ InnoDB主要特性
 
 2.大表拆小表，有大数据的列单独拆成小表
 
-* 在一个数据库中,一般不会设计属性过多的表;
-* 在一个数据库中,一般不会有超过500/1000万数据的表(拆表,按照逻辑拆分,按照业务拆分);
-* 有大数据的列单独拆成小表(富文本编辑器,CKeditor);
+* 在一个数据库中，一般不会设计属性过多的表;
+* 在一个数据库中，一般不会有超过500/1000万数据的表(拆表，按照逻辑拆分，按照业务拆分);
+* 有大数据的列单独拆成小表(富文本编辑器，CKeditor);
 
 3.根据需求的展示设置更合理的表结构
 
 4.把常用属性分离成小表
 
-* 在P2P项目中,我们把logininfo和userinfo和account表拆成了三张表;
+* 在P2P项目中，我们把logininfo和userinfo和account表拆成了三张表;
 * 减少查询常用属性需要查询的列;
 * 便于常用属性的集中缓存;
 
 ### 12、数据库的主从复制 ？
 
-1. 就算MYSQL拆成了多个,也必须分出主和从,所有的写操作都必须要在主MYSQL 上完成;
+1. 就算MYSQL拆成了多个，也必须分出主和从，所有的写操作都必须要在主MYSQL 上完成;
 2. 所有的从MYSQL的数据都来自于(同步于)主MYSQL;
-3. 既然涉及到同步,那一定有延迟;有延迟,就一定可能在读的时候产生脏数据;所以,能够在从MYSQL上进行的读操作,一定对实时性和脏数据有一定容忍度的数据;比如,登陆日志,后台报表,首页统计信息来源;文章;资讯;SNS消息;
-4. 在我们的P2P中,做主从,绝大部分的读操作,都必须在主MYSQL上执行;只有(登陆日志,报表,满标一审列表,满标二审列表,用户的流水信息,充值明细,投标明细查询类的业务可以定位到从MYSQL);
-5. 【一定注意】:在MYSQL主从时,如果一个业务(service中的一个方法)中,如果既有R操作,又有W操作,因为W操作一定要在主MYSQL上,所以在一个事务中所有的数据来源都只能来自于一个MYSQL
+3. 既然涉及到同步，那一定有延迟;有延迟，就一定可能在读的时候产生脏数据;所以，能够在从MYSQL上进行的读操作，一定对实时性和脏数据有一定容忍度的数据;比如，登陆日志，后台报表，首页统计信息来源;文章;资讯;SNS消息;
+4. 在我们的P2P中，做主从，绝大部分的读操作，都必须在主MYSQL上执行;只有(登陆日志，报表，满标一审列表，满标二审列表，用户的流水信息，充值明细，投标明细查询类的业务可以定位到从MYSQL);
+5. 【一定注意】:在MYSQL主从时，如果一个业务(service中的一个方法)中，如果既有R操作，又有W操作，因为W操作一定要在主MYSQL上，所以在一个事务中所有的数据来源都只能来自于一个MYSQL
 
-1. 要完成主从同步,就必须让在Master上执行的所有的DML和DDL能够正确的在Salve上再执行一遍;MYSQL选择使用文件来记录SQL;
-2. 要完成主从同步,第一个事情就是把在主服务器上的bin-log(二进制文件)打开,bin-log文件就可以记录在MYSQL上执行的所有的DML+DDL+TCL;
-3. MYSQL使用被动注册的方式来让从MYSQL请求同步主MYSQL的binlog;原因:被动请求的方式,主的MYSQL不需要知道有哪些从的MYSQL,我额外添加/去掉从MYSQL服务器,对主MYSQL服务器的正常运行没有任何影响;
-4. 第二步,从MYSQL后台一个线程发送一个请求,到主服务器请求更新数据;最重要的数据(我这次请求,请求你bin-log的哪一行数据之后的数据)
-5. 第三步,主MYSQL后台一个线程接收到从MYSQL发送的请求,然后读取bin-log文件中指定的内容,并放在从MYSQL的请求响应中;
-6. 第四步,从MYSQL的请求带回同步的数据,然后写在从MYSQL中的relay-log(重做日志)中;relay-log中记录的就是从主MYSQL中请求回来的哪些SQL数据;
-7. 第五步,从MYSQL后台一个线程专门用于从relay-log中读取同步回来的SQL,并写入到从MYSQL中,完成同步;
-8. MYSQL的主从同步是经过高度优化的,性能非常高;
+1. 要完成主从同步，就必须让在Master上执行的所有的DML和DDL能够正确的在Salve上再执行一遍;MYSQL选择使用文件来记录SQL;
+2. 要完成主从同步，第一个事情就是把在主服务器上的bin-log(二进制文件)打开，bin-log文件就可以记录在MYSQL上执行的所有的DML+DDL+TCL;
+3. MYSQL使用被动注册的方式来让从MYSQL请求同步主MYSQL的binlog;原因:被动请求的方式，主的MYSQL不需要知道有哪些从的MYSQL，我额外添加/去掉从MYSQL服务器，对主MYSQL服务器的正常运行没有任何影响;
+4. 第二步，从MYSQL后台一个线程发送一个请求，到主服务器请求更新数据;最重要的数据(我这次请求，请求你bin-log的哪一行数据之后的数据)
+5. 第三步，主MYSQL后台一个线程接收到从MYSQL发送的请求，然后读取bin-log文件中指定的内容，并放在从MYSQL的请求响应中;
+6. 第四步，从MYSQL的请求带回同步的数据，然后写在从MYSQL中的relay-log(重做日志)中;relay-log中记录的就是从主MYSQL中请求回来的哪些SQL数据;
+7. 第五步，从MYSQL后台一个线程专门用于从relay-log中读取同步回来的SQL，并写入到从MYSQL中，完成同步;
+8. MYSQL的主从同步是经过高度优化的，性能非常高;
 
 这里东西太多，更多请参考[mysql优化的课程笔记](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/sql/%E7%AC%94%E8%AE%B0.xls)
 
@@ -423,7 +423,7 @@ profiling: Query Profiler是MYSQL5.1之后提供的一个很方便的用于诊�
 1. 开启profiling：set profiling=1
 2. 执行QUERY，在profiling过程中所有的query都可以记录下来
 3. 查看记录的query：show profiles
-4. 选择要查看的profile：show profile cpu, block io for query 6
+4. 选择要查看的profile：show profile cpu， block io for query 6
 
 status是执行SQL的详细过程
 
@@ -479,7 +479,7 @@ JOIN的优化原则<br>
 
 死锁的预防和解除
 
-理解了死锁的原因，尤其是产生死锁的四个必要条件，就可以最大可能地避免、预防和解除死锁。所以，在系统设计、进程调度等方面注意如何不让这四个必要条件成立，如何确定资源的合理分配算法，避免进程永久占据系统资源。此外，也要防止进程在处于等待状态的情况下占用资源,在系统运行过程中，对进程发出的每一个系统能够满足的资源申请进行动态检查，并根据检查结果决定是否分配资源，若分配后系统可能发生死锁，则不予分配，否则予以分配 。因此，对资源的分配要给予合理的规划。
+理解了死锁的原因，尤其是产生死锁的四个必要条件，就可以最大可能地避免、预防和解除死锁。所以，在系统设计、进程调度等方面注意如何不让这四个必要条件成立，如何确定资源的合理分配算法，避免进程永久占据系统资源。此外，也要防止进程在处于等待状态的情况下占用资源，在系统运行过程中，对进程发出的每一个系统能够满足的资源申请进行动态检查，并根据检查结果决定是否分配资源，若分配后系统可能发生死锁，则不予分配，否则予以分配 。因此，对资源的分配要给予合理的规划。
 如何将死锁减至最少
 
 

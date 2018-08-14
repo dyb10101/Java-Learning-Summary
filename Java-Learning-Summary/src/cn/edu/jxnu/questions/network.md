@@ -397,7 +397,7 @@ Vary: Content-Encoding那么 Cache 服务器会分析后续请求消息的头部
 补充：
 
 * Connector是tomcat核心组件负责接受请求，也是容器的顶级父接口，所有容器必须实现Connector接口
-* 容器：Tomcat>Container>Engine>Host>Servlet>Context>Wrapper 【Engine、Host是非必需，Wrapper是使用门面设计模式，安全暴露数据】
+* 容器：Tomcat>Container>Engine>Host>Context>Wrapper>Servlet 【Engine、Host是非必需，Wrapper是使用门面设计模式，安全暴露数据】
 * 详情请阅读Tomcat架构设计相关书籍
 
 ### 8.TCP三次握手、四次挥手
@@ -407,8 +407,8 @@ Vary: Content-Encoding那么 Cache 服务器会分析后续请求消息的头部
 三次握手的目的是连接服务器指定端口，建立TCP连接，并同步连接双方的序列号和确认号并交换 TCP 窗口大小信息。在socket编程中，客户端执行connect()时，将触发三次握手。
 
 * 第一次：客户端发送一个TCP的SYN标志位置1的包指明客户打算连接的服务器的端口，以及初始序号X，保存在包头的序列号(Sequence Number)字段里。
-* 第二次：发回确认包(ACK)应答。即SYN标志位和ACK标志位均为1同时，将确认序号(Acknowledgement Number)设置为客户的I S N加1以.即X+1。
-* 第三次：客户端再次发送确认包(ACK) SYN标志位为0，ACK标志位为1.并且把服务器发来ACK的序号字段+1，放在确定字段中发送给对方.并且在数据段放写ISN的+1
+* 第二次：发回确认包(ACK)应答。即SYN标志位和ACK标志位均为1同时，将确认序号(Acknowledgement Number)设置为客户的ISN加1（初始序列号ISN是客户端随机产生的一个值），即x+1。并发送一个自己的ISN（y）。
+* 第三次：客户端发送确认包(ACK) SYN标志位为0，ACK标志位为1，并且把服务器发来的ISN+1（y+1）作为确认号发送给对方，且序列号设置为第二次的确认号x+1
 
 ![](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/practice/picture/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.jpg)
 
@@ -426,10 +426,14 @@ netstat -n -p TCP | grep SYN_RECV 一般较新的TCP/IP协议栈都对这一过�
 由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这个原则是当一方完成它的数据发送任务后就只能发送一个FIN来终止这个方向的连接。<br>
 收到一个 FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。
 
-* （1）客户端A发送一个FIN，用来关闭客户A到服务器B的数据传送
-* （2）服务器B收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。
-* （3）服务器B关闭与客户端A的连接，发送一个FIN给客户端A
-* （4）客户端A发回ACK报文确认，并将确认序号设置为收到序号加1
+* （1）客户端A发送一个FIN，用来关闭客户A到服务器B的数据传送，并发送一个自己的ISN（u）
+* （2）服务器B收到这个FIN，它发回一个ACK，确认序号为收到的序号加1（u+1）。和SYN一样，一个FIN将占用一个序号。同时发送一个自己的ISN(v)
+* （3）服务器B关闭与客户端A的连接，发送一个FIN、ACK给客户端A，确认号为收到的序号加1（u+1），与上一次不变。同时发送一个自己的ISN（w）
+* （4）客户端A发送ACK报文确认，并将确认序号设置为收到序号加1（w1），序列号就是上一次的确认号（u+1）
+
+实际上无论是连接或者断开连接，每次主动的一方都需要先生成一个ISN作为初始序列号seq，然后接收端为了确认需要对seq进行+1，即变成确认号ack。
+确认号表示下次需要响应端发送的数据的起始位置，因为确认号变成下次的起始序列号，以此来推断连接有效，当然这也是因为seq在被收到后会加1。
+收到seq=w，应该响应并返回ack=w+1，收到ack=u+1，则表示下次发送序列号为seq=ack=u+1，应该响应并返回seq=u+1。
 
 ![](https://github.com/jxnu-liguobin/Java-Learning-Summary/blob/master/Java-Learning-Summary/src/cn/edu/jxnu/practice/picture/TCP.JPG)
 
